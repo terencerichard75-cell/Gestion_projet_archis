@@ -3,423 +3,397 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tailere — Prototype interactif</title>
+<title>Tailere — Appartement Raspail</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --cream:#F7F5F0;--cream2:#EEECE6;--cream3:#E5E2D9;
-  --black:#0F0F0D;--black2:#1A1A17;
-  --gray:#6B6960;--gray2:#9B9890;
-  --border:#D8D5CC;--border2:#C8C5BC;
-  --white:#FFFFFF;
-  --green:#1C6B3A;--green-l:#E8F4ED;
-  --amber:#7A4A00;--amber-l:#FDF3E3;
-  --red:#8B2020;--red-l:#FDEAEA;
-  --blue:#1A3A5C;--blue-l:#E8EFF7;
-}
-html,body{height:100%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:var(--black);background:var(--cream);font-size:13px;line-height:1.5}
-.app{display:flex;height:100vh;overflow:hidden}
-.sidebar{width:210px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
-.s-logo{padding:1.125rem 1.25rem;font-size:17px;font-weight:400;color:var(--black);letter-spacing:-.04em;border-bottom:1px solid var(--border)}
-.s-nav{padding:.5rem 0;flex:1;overflow-y:auto}
-.s-item{display:flex;align-items:center;gap:9px;padding:.5rem 1.25rem;font-size:12px;cursor:pointer;color:var(--gray);transition:all .12s;letter-spacing:-.01em;border:none;background:none;width:100%;text-align:left}
-.s-item:hover{background:var(--cream);color:var(--black)}
-.s-item.on{background:var(--cream2);color:var(--black);font-weight:500}
-.s-item svg{flex-shrink:0;opacity:.65}
-.s-item.on svg{opacity:1}
-.s-sep{font-size:9px;font-weight:500;color:var(--gray2);text-transform:uppercase;letter-spacing:.1em;padding:.75rem 1.25rem .25rem}
-.s-foot{padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px}
-.av{width:28px;height:28px;border-radius:50%;background:var(--cream2);color:var(--black);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.375rem;border-bottom:1px solid var(--border);background:var(--white);flex-shrink:0}
-.t-title{font-size:13px;font-weight:500;letter-spacing:-.02em}
-.t-actions{display:flex;gap:6px;align-items:center}
-.page{display:none;padding:1.25rem;overflow-y:auto;flex:1;background:var(--cream)}.page.on{display:block}
-.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:1rem}
-.g2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px;margin-bottom:1rem}
-.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:1rem}
-.metric{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.875rem 1rem;cursor:pointer;transition:border-color .15s;user-select:none}
-.metric:hover{border-color:var(--black)}
-.m-v{font-size:22px;font-weight:400;margin-top:4px;letter-spacing:-.03em}
-.m-l{font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:.07em}
-.m-s{font-size:10px;color:var(--gray2);margin-top:2px}
-.card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem;margin-bottom:10px}
-.card-h{font-size:12px;font-weight:500;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;letter-spacing:-.01em}
-.badge{display:inline-block;font-size:9px;font-weight:500;padding:2px 8px;border-radius:20px;letter-spacing:.02em}
-.bc{background:var(--amber-l);color:var(--amber)}
-.bg{background:var(--green-l);color:var(--green)}
-.bp{background:var(--cream2);color:var(--black2)}
-.br{background:var(--red-l);color:var(--red)}
-.bgy{background:var(--cream2);color:var(--gray)}
-.bl{background:var(--blue-l);color:var(--blue)}
-.proj-r{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .1s;border-radius:0}
-.proj-r:last-child{border-bottom:none}
-.proj-r:hover{background:var(--cream);margin:0 -1rem;padding:8px 1rem;border-radius:6px}
-.proj-av{width:28px;height:28px;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--cream2);color:var(--black)}
-.pbar{height:2px;border-radius:1px;background:var(--cream3);overflow:hidden;margin-top:4px}
-.pfill{height:100%;border-radius:1px}
-.alert-r{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .1s}
-.alert-r:last-child{border-bottom:none}
-.alert-r:hover{background:var(--cream);margin:0 -1rem;padding:7px 1rem;border-radius:6px}
-.alert-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.kanban{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.kol{background:var(--cream2);border-radius:10px;padding:.75rem}
-.kol-h{font-size:9px;font-weight:500;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.625rem;display:flex;align-items:center;justify-content:space-between}
-.kol-h span{background:var(--cream3);padding:1px 5px;border-radius:8px;font-size:9px;color:var(--gray2)}
-.kc{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:.5rem .625rem;margin-bottom:6px;cursor:pointer;transition:all .12s}
-.kc:hover{border-color:var(--black);transform:translateY(-1px)}
-.kc:last-child{margin-bottom:0}
-.kc-n{font-size:11px;font-weight:500;letter-spacing:-.01em}
-.kc-s{font-size:10px;color:var(--gray2);margin-top:1px}
-.kc-bar{height:2px;border-radius:1px;margin-top:5px}
-.phase-r{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
-.phase-r:last-child{border-bottom:none}
-.ph-n{width:24px;height:24px;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--border)}
-.ph-done{background:var(--green-l);color:var(--green);border-color:var(--green-l)}
-.ph-active{background:var(--black);color:var(--white);border-color:var(--black)}
-.ph-todo{background:var(--white);color:var(--gray2)}
-.doc-r{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
-.doc-r:last-child{border-bottom:none}
-.doc-ic{width:30px;height:30px;border-radius:6px;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--cream2);color:var(--black);letter-spacing:.02em}
-.budget-r{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
-.budget-r:last-child{border-bottom:none}
-.b-lbl{flex:1;color:var(--black)}
-.bbar{width:60px;height:3px;border-radius:2px;background:var(--cream3);overflow:hidden;flex-shrink:0}
-.bfill{height:100%;border-radius:2px}
-.b-val{font-weight:500;min-width:70px;text-align:right;font-size:11px;letter-spacing:-.01em}
-.int-r{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
-.int-r:last-child{border-bottom:none}
-.ia{width:28px;height:28px;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--cream2);color:var(--black)}
-.btn-p{padding:6px 16px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:var(--black);color:var(--white);cursor:pointer;transition:all .15s;letter-spacing:-.01em}
-.btn-p:hover{background:var(--black2);transform:translateY(-1px)}
-.btn-s{padding:6px 12px;font-size:11px;border:1px solid var(--border);border-radius:6px;background:var(--white);cursor:pointer;color:var(--black);transition:all .15s;letter-spacing:-.01em}
-.btn-s:hover{background:var(--cream);border-color:var(--border2)}
-.btn-g{padding:6px 12px;font-size:11px;border:none;border-radius:6px;background:var(--green-l);color:var(--green);cursor:pointer;font-weight:500}
-.btn-g:hover{background:#d0ecd8}
-.btn-a{padding:6px 12px;font-size:11px;border:none;border-radius:6px;background:var(--amber-l);color:var(--amber);cursor:pointer;font-weight:500}
-.btn-r{padding:6px 12px;font-size:11px;border:none;border-radius:6px;background:var(--red-l);color:var(--red);cursor:pointer;font-weight:500}
-.actions-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
-.notif-bar{background:var(--cream2);border:1px solid var(--border);border-radius:8px;padding:.625rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--gray)}
-.hint-tag{display:inline-block;font-size:9px;background:var(--cream2);color:var(--gray);padding:1px 6px;border-radius:4px;margin-left:5px;cursor:default;border:1px solid var(--border)}
-.overlay{display:none;position:fixed;inset:0;background:rgba(15,15,13,.45);z-index:1000;align-items:center;justify-content:center}
-.overlay.show{display:flex}
-.modal{background:var(--white);border-radius:14px;border:1px solid var(--border);padding:1.5rem;width:380px;max-width:90vw;max-height:90vh;overflow-y:auto}
-.modal-icon{width:40px;height:40px;border-radius:8px;background:var(--cream2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:18px;color:var(--black);font-weight:400;letter-spacing:-.02em}
-.modal-title{font-size:16px;font-weight:500;margin-bottom:.375rem;letter-spacing:-.03em}
-.modal-body{font-size:12px;color:var(--gray);line-height:1.7;margin-bottom:1rem}
-.modal-steps{margin-bottom:1.125rem;display:flex;flex-direction:column;gap:6px}
-.modal-step{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--black);line-height:1.5}
-.ms-n{width:18px;height:18px;border-radius:50%;background:var(--cream2);color:var(--black);font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-weight:500}
-.modal-btns{display:flex;gap:6px;justify-content:flex-end;padding-top:.875rem;border-top:1px solid var(--border)}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--black);color:var(--white);padding:.625rem 1.25rem;border-radius:8px;font-size:12px;font-weight:500;z-index:2000;opacity:0;transition:opacity .25s;pointer-events:none;letter-spacing:-.01em;white-space:nowrap}
-.toast.show{opacity:1}
-.section-tag{font-size:9px;font-weight:500;color:var(--gray2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.625rem}
-hr{border:none;border-top:1px solid var(--border);margin:.75rem 0}
+:root{--cream:#F7F5F0;--cream-dark:#EDE9E0;--cream-border:#D8D2C6;--green-900:#0D3D22;--green-700:#1C6B3A;--green-500:#2D8A50;--green-200:#A8D4B8;--green-50:#E8F5EE;--amber-700:#7A4A00;--amber-50:#FFF8E0;--amber-border:#E8C88A;--blue-700:#185FA5;--blue-50:#E6F1FB;--gray-800:#1A1A1A;--gray-600:#444;--gray-400:#888;--white:#fff;--red-700:#A32D2D;--red-50:#FFEAEA;--font-sans:'DM Sans',sans-serif;--font-serif:'DM Serif Display',serif;--radius-sm:6px;--radius-md:10px;--radius-lg:14px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--cream);color:var(--gray-800);font-size:14px;line-height:1.5;min-height:100vh;}
+.app{display:flex;flex-direction:column;min-height:100vh;}
+.topbar{background:var(--white);border-bottom:0.5px solid var(--cream-border);padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;}
+.topbar-logo{font-family:var(--font-serif);font-size:18px;color:var(--green-700);letter-spacing:-0.02em;}
+.topbar-sep{color:var(--cream-border);font-size:18px;}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;}
+.breadcrumb a{color:var(--gray-400);cursor:pointer;}
+.breadcrumb a:hover{color:var(--gray-600);}
+.breadcrumb span{color:var(--gray-800);font-weight:500;}
+.topbar-actions{margin-left:auto;display:flex;gap:8px;}
+.btn-sm{font-family:var(--font-sans);font-size:12px;font-weight:500;padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;border:0.5px solid var(--cream-border);background:var(--white);color:var(--gray-600);transition:background .15s;}
+.btn-sm:hover{background:var(--cream);}
+.btn-sm.primary{background:var(--green-700);color:var(--white);border-color:var(--green-700);}
+.btn-sm.primary:hover{background:var(--green-900);}
+.project-header{background:var(--white);border-bottom:0.5px solid var(--cream-border);padding:20px 24px 0;}
+.project-header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.project-tag{font-size:11px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.project-name{font-family:var(--font-serif);font-size:26px;color:var(--gray-800);letter-spacing:-0.02em;line-height:1.2;}
+.project-sub{font-size:13px;color:var(--gray-400);margin-top:3px;}
+.phase-badge{font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;background:var(--amber-50);color:var(--amber-700);border:0.5px solid var(--amber-border);white-space:nowrap;}
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.metric{padding:10px 14px;background:var(--cream);border-radius:var(--radius-md);border:0.5px solid var(--cream-border);}
+.metric-label{font-size:11px;color:var(--gray-400);margin-bottom:3px;}
+.metric-value{font-size:18px;font-weight:500;color:var(--gray-800);letter-spacing:-0.02em;}
+.metric-sub{font-size:11px;color:var(--green-500);margin-top:1px;}
+.metric-sub.warn{color:var(--amber-700);}
+.tabs{display:flex;gap:0;overflow-x:auto;}
+.tab{font-size:13px;padding:10px 18px;cursor:pointer;color:var(--gray-400);border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:6px;}
+.tab:hover{color:var(--gray-600);}
+.tab.active{color:var(--green-700);border-bottom-color:var(--green-700);font-weight:500;}
+.tab-pill{font-size:10px;padding:1px 6px;border-radius:10px;font-weight:500;}
+.tab-pill.green{background:var(--green-50);color:var(--green-700);}
+.tab-pill.red{background:var(--red-50);color:var(--red-700);}
+.main{padding:20px 24px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.section-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin:20px 0 10px;}
+.section-label:first-child{margin-top:0;}
+.badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;}
+.badge-valide{background:var(--green-50);color:var(--green-700);border:0.5px solid var(--green-200);}
+.badge-partage{background:var(--blue-50);color:var(--blue-700);border:0.5px solid #B5D4F4;}
+.badge-prive{background:var(--cream);color:var(--gray-400);border:0.5px solid var(--cream-border);}
+.badge-ia{background:var(--amber-50);color:var(--amber-700);border:0.5px solid var(--amber-border);}
+/* OVERVIEW */
+.phases-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;margin-bottom:20px;}
+.phase-card{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--radius-md);padding:12px 16px;min-width:140px;flex-shrink:0;position:relative;overflow:hidden;}
+.phase-card.active{border-color:var(--green-500);border-width:1px;}
+.phase-card.active::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green-500);}
+.phase-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px;}
+.dot-done{background:var(--green-700);}
+.dot-active{background:var(--green-500);}
+.dot-pending{background:var(--cream-border);}
+.phase-card-name{font-size:13px;font-weight:500;color:var(--gray-800);margin-bottom:3px;}
+.phase-card-dates{font-size:11px;color:var(--gray-400);}
+.phase-card-pct{font-size:20px;font-weight:500;margin-top:8px;}
+.pct-done{color:var(--green-700);}
+.pct-active{color:var(--green-500);}
+.pct-pending{color:var(--cream-border);}
+.progress-bar-wrap{height:3px;background:var(--cream-dark);border-radius:2px;margin-top:8px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:var(--green-500);border-radius:2px;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.info-row{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--radius-md);padding:10px 14px;}
+.info-key{font-size:11px;color:var(--gray-400);margin-bottom:2px;}
+.info-val{font-size:13px;font-weight:500;color:var(--gray-800);}
+.info-val.green{color:var(--green-700);}
+/* DOCUMENTS */
+.doc-section{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--radius-md);margin-bottom:8px;overflow:hidden;}
+.doc-section-hdr{padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .1s;}
+.doc-section-hdr:hover{background:var(--cream);}
+.doc-num{font-size:12px;color:var(--gray-400);min-width:22px;}
+.doc-sec-name{font-size:13px;font-weight:500;color:var(--gray-800);flex:1;}
+.doc-count{font-size:11px;color:var(--gray-400);}
+.chevron{font-size:11px;color:var(--gray-400);transition:transform .2s;}
+.chevron.open{transform:rotate(180deg);}
+.doc-files{border-top:0.5px solid var(--cream-border);}
+.doc-files.collapsed{display:none;}
+.doc-file{padding:9px 16px 9px 28px;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid #F5F0E8;cursor:pointer;transition:background .1s;}
+.doc-file:last-child{border-bottom:none;}
+.doc-file:hover{background:var(--cream);}
+.doc-file-icon{width:14px;height:17px;background:var(--blue-50);border-radius:2px;border:0.5px solid #B5D4F4;flex-shrink:0;}
+.doc-file-icon.green{background:var(--green-50);border-color:var(--green-200);}
+.doc-file-name{flex:1;font-size:12px;color:var(--gray-800);}
+.doc-file-date{font-size:11px;color:var(--gray-400);white-space:nowrap;}
+.new-dot{width:6px;height:6px;border-radius:50%;background:var(--green-500);flex-shrink:0;}
+/* CR */
+.cr-generate-bar{display:flex;align-items:center;justify-content:space-between;background:var(--green-50);border:0.5px solid var(--green-200);border-radius:var(--radius-md);padding:12px 16px;cursor:pointer;transition:background .15s;}
+.cr-generate-bar:hover{background:#DCF0E5;}
+.cr-generate-label{font-size:13px;font-weight:500;color:var(--green-700);}
+.cr-generate-sub{font-size:11px;color:var(--green-500);margin-top:1px;}
+.cr-generate-btn{font-family:var(--font-sans);font-size:12px;font-weight:500;background:var(--green-700);color:var(--white);border:none;padding:7px 14px;border-radius:var(--radius-sm);cursor:pointer;}
+.cr-list{display:flex;flex-direction:column;gap:10px;}
+.cr-card{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--radius-md);padding:14px 16px;cursor:pointer;transition:box-shadow .15s;}
+.cr-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.cr-card.new{border-color:var(--green-200);border-width:1px;}
+.cr-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px;}
+.cr-icon{width:34px;height:34px;background:var(--cream);border:0.5px solid var(--cream-border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;}
+.cr-title-block{flex:1;}
+.cr-title{font-size:13px;font-weight:500;color:var(--gray-800);margin-bottom:2px;}
+.cr-date{font-size:11px;color:var(--gray-400);}
+.cr-preview{font-size:12px;color:var(--gray-400);line-height:1.5;margin-bottom:10px;padding-left:46px;}
+.cr-footer{display:flex;align-items:center;gap:8px;padding-left:46px;}
+.cr-read{font-size:11px;color:var(--green-500);}
+.cr-gen{font-size:11px;color:var(--gray-400);}
+/* GANTT */
+.gantt-wrap{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--radius-lg);overflow:hidden;}
+.gantt-head{display:grid;grid-template-columns:120px 1fr;border-bottom:0.5px solid var(--cream-border);background:var(--cream);}
+.gantt-head-label{padding:8px 12px;font-size:11px;color:var(--gray-400);border-right:0.5px solid var(--cream-border);}
+.gantt-months{display:flex;flex:1;}
+.gantt-month{flex:1;text-align:center;font-size:10px;color:var(--gray-400);padding:8px 0;border-right:0.5px solid var(--cream-border);font-weight:500;text-transform:uppercase;letter-spacing:.05em;}
+.gantt-month:last-child{border-right:none;}
+.gantt-month.current{color:var(--green-700);background:var(--green-50);}
+.gantt-row{display:grid;grid-template-columns:120px 1fr;border-bottom:0.5px solid #F5F0E8;min-height:36px;}
+.gantt-row.sub-row{background:#FDFCFA;min-height:28px;}
+.gantt-row:last-child{border-bottom:none;}
+.gantt-row-label{padding:0 12px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-800);border-right:0.5px solid var(--cream-border);font-weight:500;}
+.gantt-row-label.sub{font-size:11px;color:var(--gray-400);font-weight:400;padding-left:20px;}
+.gantt-track{position:relative;display:flex;align-items:center;}
+.gantt-bar{position:absolute;height:16px;border-radius:3px;display:flex;align-items:center;padding:0 7px;overflow:hidden;}
+.gantt-bar.sub{height:8px;}
+.bar-done{background:var(--green-700);}
+.bar-active{background:var(--green-500);}
+.bar-upcoming{background:var(--cream-dark);border:0.5px solid var(--cream-border);}
+.bar-lot{background:var(--green-200);}
+.gantt-bar-text{font-size:10px;color:var(--white);font-weight:500;white-space:nowrap;}
+.bar-upcoming .gantt-bar-text{color:var(--gray-400);}
+.bar-lot .gantt-bar-text{color:var(--green-700);}
+.gantt-pct{font-size:10px;color:var(--white);font-weight:500;}
+.today-line{position:absolute;top:0;bottom:0;width:1px;background:var(--gray-800);opacity:.2;border-right:1px dashed var(--gray-800);}
+.milestone{position:absolute;width:9px;height:9px;background:var(--green-900);transform:rotate(45deg);z-index:2;}
+.gantt-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray-400);}
+.legend-dot{width:12px;height:8px;border-radius:2px;flex-shrink:0;}
+/* INTERVENANTS */
+.portal-info-banner{background:var(--green-50);border:0.5px solid var(--green-200);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--green-700);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.portal-dot{width:7px;height:7px;border-radius:50%;background:var(--green-500);flex-shrink:0;}
+.art-card{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--radius-lg);margin-bottom:10px;overflow:hidden;}
+.art-card-top{padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;}
+.av-blue{background:var(--blue-50);color:var(--blue-700);border:0.5px solid #B5D4F4;}
+.av-amber{background:var(--amber-50);color:var(--amber-700);border:0.5px solid var(--amber-border);}
+.av-gray{background:var(--cream);color:var(--gray-400);border:0.5px solid var(--cream-border);}
+.av-green{background:var(--green-50);color:var(--green-700);border:0.5px solid var(--green-200);}
+.art-info{flex:1;}
+.art-name{font-size:13px;font-weight:500;color:var(--gray-800);margin-bottom:2px;}
+.art-lot{font-size:11px;color:var(--gray-400);}
+.status-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;}
+.sp-actif{background:var(--green-50);color:var(--green-700);border:0.5px solid var(--green-200);}
+.sp-attente{background:var(--amber-50);color:var(--amber-700);border:0.5px solid var(--amber-border);}
+.sp-invite{background:var(--cream);color:var(--gray-400);border:0.5px solid var(--cream-border);}
+.art-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:0.5px solid var(--cream-border);}
+.art-stat{padding:10px 14px;border-right:0.5px solid var(--cream-border);text-align:center;}
+.art-stat:last-child{border-right:none;}
+.art-stat-val{font-size:16px;font-weight:500;color:var(--gray-800);letter-spacing:-0.02em;}
+.art-stat-key{font-size:10px;color:var(--gray-400);margin-top:2px;}
+.art-footer{padding:10px 16px;border-top:0.5px solid var(--cream-border);display:flex;align-items:center;justify-content:space-between;background:var(--cream);}
+.art-link{font-size:12px;color:var(--blue-700);cursor:pointer;}
+.art-link:hover{text-decoration:underline;}
+.art-note{font-size:11px;color:var(--gray-400);}
+.art-note.warn{color:var(--amber-700);}
+.add-intervenant{display:flex;align-items:center;justify-content:center;gap:8px;border:1px dashed var(--cream-border);border-radius:var(--radius-lg);padding:14px;cursor:pointer;color:var(--gray-400);font-size:13px;transition:border-color .15s,color .15s;margin-top:4px;}
+.add-intervenant:hover{border-color:var(--green-200);color:var(--green-700);}
 </style>
 </head>
 <body>
-
 <div class="app">
-  <div class="sidebar">
-    <div class="s-logo">tailere</div>
-    <div class="s-nav">
-      <div class="s-sep">Espace de travail</div>
-      <button class="s-item on" onclick="nav('dashboard',this)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
-        Tableau de bord
-      </button>
-      <button class="s-item" onclick="nav('projets',this)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.2" stroke="currentColor" stroke-width="1.2"/><path d="M4 6h6M4 8.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Mes projets
-      </button>
-      <button class="s-item" onclick="nav('phases',this)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Phases & jalons
-      </button>
-      <button class="s-item" onclick="nav('documents',this)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2h6l3 3v7H3z" stroke="currentColor" stroke-width="1.2"/><path d="M9 2v3h3M5 7h4M5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Documents
-      </button>
-      <button class="s-item" onclick="nav('budget',this)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1.2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6h10M5 6v6" stroke="currentColor" stroke-width="1.2"/></svg>
-        Budget & devis
-      </button>
-      <button class="s-item" onclick="nav('intervenants',this)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="5" cy="4.5" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M1 11c0-2 1.8-3.5 4-3.5S9 9 9 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="10.5" cy="4.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M11.5 8.5c1 .4 1.8 1.4 1.8 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Intervenants
-      </button>
-      <div class="s-sep">Outils IA</div>
-      <button class="s-item" onclick="popup('ia-cctp')">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4H13L9.5 7.5 11 12 7 9l-4 3 1.5-4.5L1 5h4.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-        Générer CCTP IA
-      </button>
-      <button class="s-item" onclick="popup('ia-cr')">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4H13L9.5 7.5 11 12 7 9l-4 3 1.5-4.5L1 5h4.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-        Générer CR IA
-      </button>
+  <div class="topbar">
+    <div class="topbar-logo">tailere</div>
+    <div class="topbar-sep">·</div>
+    <div class="breadcrumb">
+      <a>Projets</a>
+      <span style="color:var(--cream-border)">›</span>
+      <span>Appartement Raspail</span>
     </div>
-    <div class="s-foot">
-      <div class="av">SA</div>
+    <div class="topbar-actions">
+      <button class="btn-sm">Exporter PDF</button>
+      <button class="btn-sm">Inviter client</button>
+      <button class="btn-sm primary">+ Nouveau document</button>
+    </div>
+  </div>
+
+  <div class="project-header">
+    <div class="project-header-top">
       <div>
-        <div style="font-size:11px;font-weight:500;letter-spacing:-.01em">Sophie Arnaud</div>
-        <div style="font-size:10px;color:var(--gray2)">Plan Pro</div>
+        <div class="project-tag">Paris 14e · Résidentiel</div>
+        <div class="project-name">Appartement Raspail</div>
+        <div class="project-sub">87 m² · Rénovation complète · M. &amp; Mme Lefèvre · Démarré jan. 2026</div>
       </div>
+      <span class="phase-badge">Phase DCE</span>
+    </div>
+    <div class="metrics-row">
+      <div class="metric"><div class="metric-label">Budget total</div><div class="metric-value">142 000 €</div><div class="metric-sub warn">+3% vs estimatif</div></div>
+      <div class="metric"><div class="metric-label">Engagé</div><div class="metric-value">61 400 €</div><div class="metric-sub">43% du budget</div></div>
+      <div class="metric"><div class="metric-label">Avancement global</div><div class="metric-value">38%</div><div class="metric-sub">Phase 3 sur 5</div></div>
+      <div class="metric"><div class="metric-label">Livraison estimée</div><div class="metric-value">oct. 2026</div><div class="metric-sub">Dans 27 semaines</div></div>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="overview">Vue d'ensemble</div>
+      <div class="tab" data-tab="docs">Documents <span class="tab-pill green">12</span></div>
+      <div class="tab" data-tab="cr">Comptes-rendus <span class="tab-pill red">1 nouveau</span></div>
+      <div class="tab" data-tab="gantt">Planning</div>
+      <div class="tab" data-tab="art">Intervenants <span class="tab-pill green">5</span></div>
     </div>
   </div>
 
   <div class="main">
-    <div class="topbar">
-      <div class="t-title" id="page-title">Tableau de bord</div>
-      <div class="t-actions">
-        <button class="btn-s" onclick="popup('notifs')">
-          Alertes &nbsp;<span style="background:var(--black);color:var(--white);font-size:9px;padding:1px 5px;border-radius:8px">3</span>
-        </button>
-        <button class="btn-p" onclick="popup('nouveau-projet')">+ Nouveau projet</button>
-      </div>
-    </div>
 
-    <!-- DASHBOARD -->
-    <div id="page-dashboard" class="page on">
-      <div class="notif-bar">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="var(--gray)" stroke-width="1.1"/><path d="M6.5 4v3" stroke="var(--gray)" stroke-width="1.1" stroke-linecap="round"/><circle cx="6.5" cy="9" r=".7" fill="var(--gray)"/></svg>
-        Prototype interactif Tailere — Cliquez sur chaque bouton et carte pour découvrir les fonctionnalités
+    <!-- VUE D'ENSEMBLE -->
+    <div class="tab-panel active" id="panel-overview">
+      <div class="section-label">Phases du projet</div>
+      <div class="phases-strip">
+        <div class="phase-card"><div style="display:flex;align-items:center;margin-bottom:4px"><span class="phase-dot dot-done"></span><span class="phase-card-name">ESQ</span></div><div class="phase-card-dates">jan. → fév. 2026</div><div class="phase-card-pct pct-done">100%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;background:var(--green-700)"></div></div></div>
+        <div class="phase-card"><div style="display:flex;align-items:center;margin-bottom:4px"><span class="phase-dot dot-done"></span><span class="phase-card-name">APS / APD</span></div><div class="phase-card-dates">fév. → mars 2026</div><div class="phase-card-pct pct-done">100%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;background:var(--green-700)"></div></div></div>
+        <div class="phase-card active"><div style="display:flex;align-items:center;margin-bottom:4px"><span class="phase-dot dot-active"></span><span class="phase-card-name">DCE</span></div><div class="phase-card-dates">avr. → mai 2026</div><div class="phase-card-pct pct-active">65%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:65%"></div></div></div>
+        <div class="phase-card"><div style="display:flex;align-items:center;margin-bottom:4px"><span class="phase-dot dot-pending"></span><span class="phase-card-name">DET / Chantier</span></div><div class="phase-card-dates">juin → sept. 2026</div><div class="phase-card-pct pct-pending">—</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%"></div></div></div>
+        <div class="phase-card"><div style="display:flex;align-items:center;margin-bottom:4px"><span class="phase-dot dot-pending"></span><span class="phase-card-name">OPR / Livraison</span></div><div class="phase-card-dates">oct. 2026</div><div class="phase-card-pct pct-pending">—</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%"></div></div></div>
       </div>
-      <div class="g4">
-        <div class="metric" onclick="popup('stat-projets')"><div class="m-l">Projets actifs <span class="hint-tag">?</span></div><div class="m-v">8</div><div class="m-s">+2 ce mois</div></div>
-        <div class="metric" onclick="popup('stat-chantier')"><div class="m-l">En chantier <span class="hint-tag">?</span></div><div class="m-v" style="color:var(--amber)">3</div><div class="m-s">DET en cours</div></div>
-        <div class="metric" onclick="popup('stat-ca')"><div class="m-l">CA engagé <span class="hint-tag">?</span></div><div class="m-v">142 k€</div><div class="m-s">sur 8 projets</div></div>
-        <div class="metric" onclick="popup('stat-livres')"><div class="m-l">Livrés ce mois <span class="hint-tag">?</span></div><div class="m-v" style="color:var(--green)">2</div><div class="m-s">DOE transmis</div></div>
-      </div>
-      <div class="g2">
-        <div class="card">
-          <div class="card-h">Projets récents <button class="btn-s" style="font-size:10px" onclick="nav('projets')">Voir tout</button></div>
-          <div class="proj-r" onclick="popup('projet-detail')">
-            <div class="proj-av">LB</div>
-            <div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;font-weight:500;letter-spacing:-.01em">Appt. Leblanc</span><span class="badge bp">Conception</span></div><div class="pbar"><div class="pfill" style="width:30%;background:var(--black)"></div></div><div class="m-s" style="margin-top:2px">30% · ESQ validée</div></div>
-          </div>
-          <div class="proj-r" onclick="popup('projet-detail')">
-            <div class="proj-av">BM</div>
-            <div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;font-weight:500;letter-spacing:-.01em">Boutique Martin</span><span class="badge bc">Chantier</span></div><div class="pbar"><div class="pfill" style="width:65%;background:var(--amber)"></div></div><div class="m-s" style="margin-top:2px">65% · DET en cours</div></div>
-          </div>
-          <div class="proj-r" onclick="popup('projet-detail')">
-            <div class="proj-av">VD</div>
-            <div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;font-weight:500;letter-spacing:-.01em">Villa Duval</span><span class="badge bgy">Consultation</span></div><div class="pbar"><div class="pfill" style="width:50%;background:var(--black)"></div></div><div class="m-s" style="margin-top:2px">50% · DCE préparation</div></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-h">Alertes prioritaires</div>
-          <div class="alert-r" onclick="popup('alerte-validation')"><div class="alert-dot" style="background:var(--red)"></div><div style="flex:1"><div style="font-size:11px;font-weight:500">Validation APD attendue</div><div class="m-s">Leblanc · J+3 sans réponse</div></div><button class="btn-r" style="font-size:9px;padding:2px 8px" onclick="event.stopPropagation();popup('alerte-validation')">Relancer</button></div>
-          <div class="alert-r" onclick="popup('alerte-budget')"><div class="alert-dot" style="background:var(--amber)"></div><div style="flex:1"><div style="font-size:11px;font-weight:500">Budget dépassé +6%</div><div class="m-s">Boutique Martin · lot peinture</div></div><button class="btn-a" style="font-size:9px;padding:2px 8px" onclick="event.stopPropagation();popup('alerte-budget')">Voir</button></div>
-          <div class="alert-r" onclick="popup('alerte-dp')"><div class="alert-dot" style="background:var(--black)"></div><div style="flex:1"><div style="font-size:11px;font-weight:500">DP expire dans 5 jours</div><div class="m-s">Projet Fontenay · mairie</div></div><button class="btn-s" style="font-size:9px;padding:2px 8px" onclick="event.stopPropagation();popup('alerte-dp')">Traiter</button></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-h">Vue Kanban — tous les projets <button class="btn-p" style="font-size:10px" onclick="popup('nouveau-projet')">+ Projet</button></div>
-        <div class="kanban">
-          <div class="kol"><div class="kol-h">Conception <span>2</span></div>
-            <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Appt. Leblanc</div><div class="kc-s">Paris 9e · 85m²</div><div class="kc-bar" style="width:30%;background:var(--black)"></div></div>
-            <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Projet Fontenay</div><div class="kc-s">120m² · ESQ</div><div class="kc-bar" style="width:15%;background:var(--black)"></div></div>
-          </div>
-          <div class="kol"><div class="kol-h">Consultation <span>1</span></div>
-            <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Villa Duval</div><div class="kc-s">Biarritz · 220m²</div><div class="kc-bar" style="width:50%;background:var(--black)"></div></div>
-          </div>
-          <div class="kol"><div class="kol-h">Chantier <span>3</span></div>
-            <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Boutique Martin</div><div class="kc-s">Lyon · 180m²</div><div class="kc-bar" style="width:65%;background:var(--amber)"></div></div>
-            <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Hôtel Le Cèdre</div><div class="kc-s">Bordeaux · 14 ch.</div><div class="kc-bar" style="width:40%;background:var(--amber)"></div></div>
-          </div>
-          <div class="kol"><div class="kol-h">Livré <span>2</span></div>
-            <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Appt. Renard</div><div class="kc-s">Paris 16e · ★★★★★</div><div class="kc-bar" style="width:100%;background:var(--green)"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJETS -->
-    <div id="page-projets" class="page">
-      <div class="actions-row">
-        <button class="btn-p" onclick="popup('nouveau-projet')">+ Nouveau projet</button>
-        <button class="btn-s" onclick="popup('gabarits')">Gabarits</button>
-        <button class="btn-g" onclick="popup('ia-cctp')">IA — Générer CCTP</button>
-      </div>
-      <div class="kanban">
-        <div class="kol"><div class="kol-h" style="color:var(--black)">Conception</div>
-          <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Appt. Leblanc</div><div class="kc-s">Paris 9e · 85m² · 45k€</div><div class="kc-bar" style="width:30%;background:var(--black)"></div><div style="margin-top:5px"><span class="badge bp">APD</span></div></div>
-          <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Projet Fontenay</div><div class="kc-s">120m² · 62k€</div><div class="kc-bar" style="width:15%;background:var(--black)"></div><div style="margin-top:5px"><span class="badge bp">ESQ</span></div></div>
-        </div>
-        <div class="kol"><div class="kol-h">Consultation</div>
-          <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Villa Duval</div><div class="kc-s">Biarritz · 220m² · 95k€</div><div class="kc-bar" style="width:50%;background:var(--black)"></div><div style="margin-top:5px"><span class="badge bgy">DCE</span></div></div>
-        </div>
-        <div class="kol"><div class="kol-h">Chantier</div>
-          <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Boutique Martin</div><div class="kc-s">Lyon · 180m² · 78k€</div><div class="kc-bar" style="width:65%;background:var(--amber)"></div><div style="margin-top:5px"><span class="badge bc">DET 65%</span></div></div>
-          <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Hôtel Le Cèdre</div><div class="kc-s">Bordeaux · 14ch · 210k€</div><div class="kc-bar" style="width:40%;background:var(--amber)"></div><div style="margin-top:5px"><span class="badge bc">DET 40%</span></div></div>
-        </div>
-        <div class="kol"><div class="kol-h">Livré</div>
-          <div class="kc" onclick="popup('projet-detail')"><div class="kc-n">Appt. Renard</div><div class="kc-s">Paris 16e · 110m²</div><div class="kc-bar" style="width:100%;background:var(--green)"></div><div style="margin-top:5px"><span class="badge bg">OPR signé</span></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PHASES -->
-    <div id="page-phases" class="page">
-      <div class="actions-row">
-        <button class="btn-s" onclick="popup('select-projet')">Boutique Martin ▾</button>
-        <button class="btn-g" onclick="popup('ia-cr')">IA — Générer CR chantier</button>
-        <button class="btn-a" onclick="popup('opr')">OPR mobile</button>
-      </div>
-      <div class="card">
-        <div class="phase-r"><div class="ph-n ph-done">✓</div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-weight:500">ESQ — Esquisse</span><span class="badge bg">Validé 12 mars</span></div><div class="m-s" style="margin-top:2px">Planches d'ambiance, croquis — "Bon pour suite" signé client</div></div></div>
-        <div class="phase-r"><div class="ph-n ph-done">✓</div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-weight:500">APD — Avant-projet</span><span class="badge bg">Validé 28 mars</span></div><div class="m-s" style="margin-top:2px">Plans côtés, fiches matériaux, estimatif — Validé client</div></div></div>
-        <div class="phase-r"><div class="ph-n ph-done">✓</div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-weight:500">DCE — Consultation</span><span class="badge bg">Validé 2 avr.</span></div><div class="m-s" style="margin-top:2px">CCTP généré IA, 5 artisans consultés, devis comparés, OS émis</div></div></div>
-        <div class="phase-r"><div class="ph-n ph-active">▶</div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-weight:500">DET — Direction travaux</span><span class="badge bc">En cours 65%</span></div><div class="m-s" style="margin-top:3px;margin-bottom:8px">CR hebdos auto · 3 réserves ouvertes · fin prév. 30 mai</div><div class="actions-row" style="margin-bottom:0"><button class="btn-g" onclick="popup('ia-cr')">Générer CR IA</button><button class="btn-a" onclick="popup('reserve')">Signaler réserve</button><button class="btn-s" onclick="popup('situation')">Situation travaux</button></div></div></div>
-        <div class="phase-r"><div class="ph-n ph-todo">5</div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-weight:500">OPR — Réception</span><span class="badge bgy">À venir</span></div><div class="m-s" style="margin-top:2px">PV réception, levée réserves, DOE, signatures électroniques</div></div></div>
+      <div class="section-label">Informations projet</div>
+      <div class="info-grid">
+        <div class="info-row"><div class="info-key">Client</div><div class="info-val">M. &amp; Mme Lefèvre</div></div>
+        <div class="info-row"><div class="info-key">Chef de projet</div><div class="info-val">Sophie Marchand</div></div>
+        <div class="info-row"><div class="info-key">Surface</div><div class="info-val">87 m²</div></div>
+        <div class="info-row"><div class="info-key">Type de projet</div><div class="info-val">Rénovation complète</div></div>
+        <div class="info-row"><div class="info-key">Contrat signé</div><div class="info-val green">12 jan. 2026 ✓</div></div>
+        <div class="info-row"><div class="info-key">Prochaine échéance</div><div class="info-val">CCTP Plomberie — 14 avr.</div></div>
+        <div class="info-row"><div class="info-key">Assurance DO</div><div class="info-val green">Ouverte ✓</div></div>
+        <div class="info-row"><div class="info-key">Dossier administratif</div><div class="info-val">DP déposée — en instruction</div></div>
       </div>
     </div>
 
     <!-- DOCUMENTS -->
-    <div id="page-documents" class="page">
-      <div class="actions-row">
-        <button class="btn-p" onclick="popup('deposer-doc')">+ Déposer document</button>
-        <button class="btn-g" onclick="popup('ia-cctp')">IA — Générer CCTP</button>
-        <button class="btn-s" onclick="popup('annoter')">Annoter un plan</button>
-        <button class="btn-s" onclick="popup('partager')">Partager au client</button>
+    <div class="tab-panel" id="panel-docs">
+      <div class="doc-section" id="sec1">
+        <div class="doc-section-hdr" onclick="toggleSection('sec1')"><span class="doc-num">01</span><span class="doc-sec-name">Contrat &amp; Honoraires</span><span class="badge badge-valide">Validé ✓</span><span class="doc-count">2 docs</span><span class="chevron open" id="chev-sec1">▾</span></div>
+        <div class="doc-files" id="files-sec1">
+          <div class="doc-file"><div class="doc-file-icon green"></div><span class="doc-file-name">Contrat MOE — Raspail v1.pdf</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">12 jan. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon green"></div><span class="doc-file-name">Annexe honoraires.pdf</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">12 jan. 2026</span></div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-h">Documents projet — Boutique Martin</div>
-        <div class="doc-r"><div class="doc-ic">ESQ</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Esquisses validées v2</div><div class="m-s">PDF · 12 mars 2026 · 3 annotations client</div></div><div style="display:flex;gap:5px;align-items:center"><button class="btn-s" style="font-size:10px" onclick="popup('voir-doc')">Voir</button><span class="badge bg">Validé</span></div></div>
-        <div class="doc-r"><div class="doc-ic">APD</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Plans APD côtés v1</div><div class="m-s">PDF + DWG · 28 mars · Validé client</div></div><div style="display:flex;gap:5px;align-items:center"><button class="btn-s" style="font-size:10px" onclick="popup('voir-doc')">Voir</button><span class="badge bg">Validé</span></div></div>
-        <div class="doc-r"><div class="doc-ic">CCTP</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">CCTP lot peinture (IA)</div><div class="m-s">Généré IA · 2 avr. · Envoyé à 3 artisans</div></div><div style="display:flex;gap:5px;align-items:center"><button class="btn-g" style="font-size:10px" onclick="popup('ia-cctp')">Régénérer IA</button><span class="badge bg">Diffusé</span></div></div>
-        <div class="doc-r"><div class="doc-ic">CR</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">CR chantier — semaine 14</div><div class="m-s">Généré IA · 7 avr. · Envoyé client + artisans</div></div><div style="display:flex;gap:5px;align-items:center"><button class="btn-s" style="font-size:10px" onclick="popup('voir-doc')">Voir</button><span class="badge bgy">Diffusé</span></div></div>
-        <div class="doc-r"><div class="doc-ic">DEV</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Devis mobilier — Bois &amp; Forme</div><div class="m-s">Reçu 3 avr. · Intégré comparatif</div></div><div style="display:flex;gap:5px;align-items:center"><button class="btn-a" style="font-size:10px" onclick="popup('valider-devis')">Valider</button><span class="badge br">À valider</span></div></div>
+      <div class="doc-section" id="sec2">
+        <div class="doc-section-hdr" onclick="toggleSection('sec2')"><span class="doc-num">02</span><span class="doc-sec-name">APS — Avant-Projet Sommaire</span><span class="badge badge-valide">Validé ✓</span><span class="doc-count">3 docs</span><span class="chevron" id="chev-sec2">▾</span></div>
+        <div class="doc-files collapsed" id="files-sec2">
+          <div class="doc-file"><div class="doc-file-icon green"></div><span class="doc-file-name">Plans APS v2.pdf</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">28 fév. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">Moodboard directions créatives.pdf</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">20 fév. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">Estimatif APS.xlsx</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">28 fév. 2026</span></div>
+        </div>
+      </div>
+      <div class="doc-section" id="sec3">
+        <div class="doc-section-hdr" onclick="toggleSection('sec3')"><span class="doc-num">03</span><span class="doc-sec-name">DCE — Dossiers de Consultation</span><span class="badge badge-partage">Partagé</span><span class="doc-count">4 docs</span><span class="chevron open" id="chev-sec3">▾</span></div>
+        <div class="doc-files" id="files-sec3">
+          <div class="doc-file"><div class="doc-file-icon green"></div><span class="doc-file-name">CCTP Électricité.pdf</span><span class="badge badge-ia" style="margin-right:2px">IA</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">2 avr. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">CCTP Plomberie.pdf</span><span class="badge badge-ia" style="margin-right:2px">IA</span><span class="badge badge-prive">Privé</span><span class="new-dot" style="margin:0 4px"></span><span class="doc-file-date">6 avr. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">CCTP Peinture.pdf</span><span class="badge badge-ia" style="margin-right:2px">IA</span><span class="badge badge-prive">Privé</span><span class="new-dot" style="margin:0 4px"></span><span class="doc-file-date">7 avr. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">Plans techniques APD v3.pdf</span><span class="badge badge-partage">Partagé</span><span class="doc-file-date">15 mars 2026</span></div>
+        </div>
+      </div>
+      <div class="doc-section" id="sec4">
+        <div class="doc-section-hdr" onclick="toggleSection('sec4')"><span class="doc-num">04</span><span class="doc-sec-name">Administratif</span><span class="badge badge-prive">Privé</span><span class="doc-count">3 docs</span><span class="chevron" id="chev-sec4">▾</span></div>
+        <div class="doc-files collapsed" id="files-sec4">
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">Déclaration Préalable — dépôt mairie.pdf</span><span class="badge badge-prive">Privé</span><span class="doc-file-date">10 mars 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">Attestation assurance DO.pdf</span><span class="badge badge-valide">Validé</span><span class="doc-file-date">8 jan. 2026</span></div>
+          <div class="doc-file"><div class="doc-file-icon"></div><span class="doc-file-name">CCAP — Cahier des Clauses Admin.pdf</span><span class="badge badge-ia" style="margin-right:2px">IA</span><span class="badge badge-prive">Privé</span><span class="doc-file-date">3 avr. 2026</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- BUDGET -->
-    <div id="page-budget" class="page">
-      <div class="actions-row">
-        <button class="btn-p" onclick="popup('nouveau-devis')">+ Consultation artisan</button>
-        <button class="btn-s" onclick="popup('comparatif')">Tableau comparatif</button>
-        <button class="btn-g" onclick="popup('situation')">Situation travaux</button>
+    <!-- COMPTES-RENDUS -->
+    <div class="tab-panel" id="panel-cr">
+      <div class="cr-generate-bar">
+        <div><div class="cr-generate-label">Générer un compte-rendu par IA</div><div class="cr-generate-sub">Basé sur les données de la semaine · ~25 secondes</div></div>
+        <button class="cr-generate-btn" onclick="alert('Génération IA en cours...')">+ Générer CR IA</button>
       </div>
-      <div class="g3">
-        <div class="metric" onclick="popup('stat-ca')"><div class="m-l">Budget initial</div><div class="m-v">78 000 €</div></div>
-        <div class="metric" onclick="popup('alerte-budget')"><div class="m-l">Engagé</div><div class="m-v" style="color:var(--amber)">61 200 €</div><div class="m-s">+6% prévisionnel</div></div>
-        <div class="metric" onclick="popup('stat-ca')"><div class="m-l">Reste à engager</div><div class="m-v" style="color:var(--green)">16 800 €</div></div>
+      <div class="section-label" style="margin-top:16px">Historique</div>
+      <div class="cr-list">
+        <div class="cr-card new">
+          <div class="cr-top">
+            <div class="cr-icon">📋</div>
+            <div class="cr-title-block"><div class="cr-title">CR n°3 — Réunion DCE — Lot Électricité</div><div class="cr-date">7 avr. 2026 · <span style="color:var(--amber-700)">Non diffusé</span></div></div>
+            <span class="badge badge-ia">IA</span>
+          </div>
+          <div class="cr-preview">"Présence : S. Marchand (architecte), J. Durand (élec.), M. Lefèvre (client). Avancement lot électricité 70%. Réserve tableau central levée. Prochaine réunion 14 avr."</div>
+          <div class="cr-footer"><span class="badge badge-ia">IA</span><span class="cr-gen">Généré en 22s</span><span style="flex:1"></span><button class="btn-sm primary" style="font-size:11px;padding:5px 10px">Diffuser</button></div>
+        </div>
+        <div class="cr-card">
+          <div class="cr-top">
+            <div class="cr-icon">📋</div>
+            <div class="cr-title-block"><div class="cr-title">CR n°2 — Réunion APD — Validation plans</div><div class="cr-date">18 mars 2026</div></div>
+            <span class="badge badge-ia">IA</span>
+          </div>
+          <div class="cr-preview">"Validation plans APD v3 par clients. Modifications cloison cuisine intégrées. Estimatif travaux confirmé à 142 000 €. Prochaine étape : lancement DCE."</div>
+          <div class="cr-footer"><span class="badge badge-ia">IA</span><span class="cr-gen">Généré en 31s</span><span style="flex:1"></span><span class="cr-read">✓✓ Lu le 19 mars</span></div>
+        </div>
+        <div class="cr-card">
+          <div class="cr-top">
+            <div class="cr-icon">📋</div>
+            <div class="cr-title-block"><div class="cr-title">CR n°1 — Réunion de lancement ESQ</div><div class="cr-date">15 jan. 2026</div></div>
+            <span class="badge badge-ia">IA</span>
+          </div>
+          <div class="cr-preview">"Première réunion client. Programme validé. Surface : 87 m². Budget validé : 140–145k€. Délai livraison souhaité : oct. 2026. Prochaine réunion : présentation esquisses."</div>
+          <div class="cr-footer"><span class="badge badge-ia">IA</span><span class="cr-gen">Généré en 28s</span><span style="flex:1"></span><span class="cr-read">✓✓ Lu le 16 jan.</span></div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-h">Détail par poste</div>
-        <div class="budget-r"><span class="b-lbl">Honoraires MOE</span><div class="bbar"><div class="bfill" style="width:100%;background:var(--black)"></div></div><span class="b-val">12 000 €</span><span class="badge bg" style="margin-left:6px">Réglé</span></div>
-        <div class="budget-r"><span class="b-lbl">Démolition &amp; gros œuvre</span><div class="bbar"><div class="bfill" style="width:100%;background:var(--black)"></div></div><span class="b-val">8 400 €</span><span class="badge bg" style="margin-left:6px">Réglé</span></div>
-        <div class="budget-r"><span class="b-lbl">Électricité &amp; plomberie</span><div class="bbar"><div class="bfill" style="width:100%;background:var(--black)"></div></div><span class="b-val">11 600 €</span><span class="badge bg" style="margin-left:6px">Réglé</span></div>
-        <div class="budget-r"><span class="b-lbl">Cloisonnement</span><div class="bbar"><div class="bfill" style="width:65%;background:var(--amber)"></div></div><span class="b-val">9 200 €</span><span class="badge bc" style="margin-left:6px">En cours</span></div>
-        <div class="budget-r"><span class="b-lbl">Peinture</span><div class="bbar"><div class="bfill" style="width:0%"></div></div><span class="b-val">7 800 €</span><button class="btn-s" style="font-size:10px;margin-left:6px" onclick="popup('situation')">Situation</button></div>
-        <div class="budget-r"><span class="b-lbl">Mobilier sur mesure</span><div class="bbar"><div class="bfill" style="width:0%"></div></div><span class="b-val">18 400 €</span><button class="btn-a" style="font-size:10px;margin-left:6px" onclick="popup('valider-devis')">Valider devis</button></div>
+    </div>
+
+    <!-- PLANNING -->
+    <div class="tab-panel" id="panel-gantt">
+      <div class="gantt-wrap">
+        <div class="gantt-head">
+          <div class="gantt-head-label">Phase</div>
+          <div class="gantt-months">
+            <div class="gantt-month">Jan</div><div class="gantt-month">Fév</div><div class="gantt-month">Mars</div><div class="gantt-month current">Avr</div><div class="gantt-month">Mai</div><div class="gantt-month">Juin</div><div class="gantt-month">Juil</div><div class="gantt-month">Août</div><div class="gantt-month">Sept</div><div class="gantt-month">Oct</div>
+          </div>
+        </div>
+        <div class="gantt-row"><div class="gantt-row-label"><span class="phase-dot dot-done"></span>ESQ</div><div class="gantt-track"><div class="gantt-bar bar-done" style="left:0%;width:19%"><span class="gantt-pct">100%</span></div><div class="milestone" style="left:19%;top:50%;margin-top:-4px"></div></div></div>
+        <div class="gantt-row"><div class="gantt-row-label"><span class="phase-dot dot-done"></span>APS / APD</div><div class="gantt-track"><div class="gantt-bar bar-done" style="left:19%;width:23%"><span class="gantt-pct">100%</span></div><div class="milestone" style="left:42%;top:50%;margin-top:-4px"></div></div></div>
+        <div class="gantt-row"><div class="gantt-row-label"><span class="phase-dot dot-active"></span>DCE</div><div class="gantt-track"><div class="gantt-bar bar-active" style="left:32%;width:18%"><span class="gantt-pct">65%</span></div><div class="today-line" style="left:38%"></div></div></div>
+        <div class="gantt-row"><div class="gantt-row-label"><span class="phase-dot dot-pending"></span>DET / Chantier</div><div class="gantt-track"><div class="gantt-bar bar-upcoming" style="left:50%;width:37%"><span class="gantt-bar-text">Chantier</span></div></div></div>
+        <div class="gantt-row sub-row"><div class="gantt-row-label sub">↳ Élec.</div><div class="gantt-track"><div class="gantt-bar bar-lot sub" style="left:50%;width:18%"><span class="gantt-bar-text">Durand</span></div></div></div>
+        <div class="gantt-row sub-row"><div class="gantt-row-label sub">↳ Plomberie</div><div class="gantt-track"><div class="gantt-bar bar-lot sub" style="left:55%;width:20%"><span class="gantt-bar-text">Martin</span></div></div></div>
+        <div class="gantt-row sub-row"><div class="gantt-row-label sub">↳ Peinture</div><div class="gantt-track"><div class="gantt-bar bar-lot sub" style="left:68%;width:14%"><span class="gantt-bar-text">Azur</span></div></div></div>
+        <div class="gantt-row"><div class="gantt-row-label"><span class="phase-dot dot-pending"></span>OPR / Liv.</div><div class="gantt-track"><div class="gantt-bar bar-upcoming" style="left:87%;width:12%"><span class="gantt-bar-text">OPR</span></div><div class="milestone" style="left:99%;top:50%;margin-top:-4px;background:var(--green-700)"></div></div></div>
+      </div>
+      <div class="gantt-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green-700)"></div>Phase validée</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green-500)"></div>En cours</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--cream-dark);border:0.5px solid var(--cream-border)"></div>À venir</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green-200)"></div>Lots artisans</div>
+        <div class="legend-item"><div style="width:9px;height:9px;background:var(--green-900);transform:rotate(45deg);flex-shrink:0"></div>Jalon</div>
+        <div class="legend-item"><div style="width:1px;height:12px;border-right:1px dashed var(--gray-400);opacity:.6;flex-shrink:0"></div>Aujourd'hui</div>
       </div>
     </div>
 
     <!-- INTERVENANTS -->
-    <div id="page-intervenants" class="page">
-      <div class="actions-row">
-        <button class="btn-p" onclick="popup('ajouter-artisan')">+ Ajouter artisan</button>
-        <button class="btn-s" onclick="popup('sourcing')">Annuaire &amp; sourcing</button>
-        <button class="btn-g" onclick="popup('brief-artisan')">IA — Brief artisan</button>
+    <div class="tab-panel" id="panel-art">
+      <div class="portal-info-banner"><div class="portal-dot"></div>Portail artisan cloisonné — chaque intervenant accède uniquement à son lot. Ils ne voient pas le budget global ni les autres intervenants.</div>
+      <div class="section-label">Lot 01 · Électricité CFO/CFA</div>
+      <div class="art-card">
+        <div class="art-card-top"><div class="avatar av-blue">JD</div><div class="art-info"><div class="art-name">Jean Durand — Durand Électricité SARL</div><div class="art-lot">Lot 01 · Électricité CFO/CFA · Paris 75</div></div><span class="status-pill sp-actif">Actif</span></div>
+        <div class="art-stats"><div class="art-stat"><div class="art-stat-val">38 400 €</div><div class="art-stat-key">Marché signé</div></div><div class="art-stat"><div class="art-stat-val">2 / 3</div><div class="art-stat-key">Situations</div></div><div class="art-stat"><div class="art-stat-val" style="color:var(--amber-700)">1</div><div class="art-stat-key">Réserve ouverte</div></div></div>
+        <div class="art-footer"><span class="art-link">→ Ouvrir le portail artisan</span><span class="art-note warn">Situation n°3 attendue le 15 avr.</span></div>
       </div>
-      <div class="card">
-        <div class="card-h">Intervenants — Boutique Martin</div>
-        <div class="int-r"><div class="ia">SA</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Sophie Arnaud — Maître d'œuvre</div><div class="m-s">Coordination, suivi chantier, CR</div></div><span class="badge bl">MOE</span></div>
-        <div class="int-r"><div class="ia">EL</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Dupont Électricité</div><div class="m-s">Lot électricité · Réceptionné</div></div><div style="display:flex;gap:5px"><button class="btn-s" style="font-size:10px" onclick="popup('portail-artisan')">Portail</button><span class="badge bg">Réceptionné</span></div></div>
-        <div class="int-r"><div class="ia">PL</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Atelier Cloison Pro</div><div class="m-s">Cloisonnement · En cours</div></div><div style="display:flex;gap:5px"><button class="btn-s" style="font-size:10px" onclick="popup('portail-artisan')">Portail</button><span class="badge bc">En cours</span></div></div>
-        <div class="int-r"><div class="ia">PE</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Coloris Création</div><div class="m-s">Peinture · Démarrage 14 mai</div></div><div style="display:flex;gap:5px"><button class="btn-s" style="font-size:10px" onclick="popup('portail-artisan')">Portail</button><button class="btn-g" style="font-size:10px" onclick="popup('brief-artisan')">Brief IA</button></div></div>
-        <div class="int-r"><div class="ia">EB</div><div style="flex:1"><div style="font-size:12px;font-weight:500;letter-spacing:-.01em">Bois &amp; Forme — Ébéniste</div><div class="m-s">Mobilier sur mesure · Devis en attente</div></div><div style="display:flex;gap:5px"><button class="btn-a" style="font-size:10px" onclick="popup('valider-devis')">Valider devis</button></div></div>
+      <div class="section-label">Lot 02 · Plomberie &amp; Sanitaires</div>
+      <div class="art-card">
+        <div class="art-card-top"><div class="avatar av-amber">PM</div><div class="art-info"><div class="art-name">Pierre Martin — Martin Plomberie</div><div class="art-lot">Lot 02 · Plomberie &amp; Sanitaires · Paris 92</div></div><span class="status-pill sp-attente">OS en attente</span></div>
+        <div class="art-stats"><div class="art-stat"><div class="art-stat-val">12 800 €</div><div class="art-stat-key">Devis accepté</div></div><div class="art-stat"><div class="art-stat-val">0 / 0</div><div class="art-stat-key">Situations</div></div><div class="art-stat"><div class="art-stat-val">—</div><div class="art-stat-key">Réserves</div></div></div>
+        <div class="art-footer"><span class="art-link">→ Émettre l'Ordre de Service</span><span class="art-note warn">OS non encore émis — démarrage bloqué</span></div>
       </div>
+      <div class="section-label">Lot 03 · Peinture &amp; Revêtements</div>
+      <div class="art-card">
+        <div class="art-card-top"><div class="avatar av-gray">AZ</div><div class="art-info"><div class="art-name">Azur Peinture SARL</div><div class="art-lot">Lot 03 · Peinture &amp; Revêtements · Paris 75</div></div><span class="status-pill sp-invite">Invité</span></div>
+        <div class="art-stats"><div class="art-stat"><div class="art-stat-val" style="font-size:12px;color:var(--gray-400)">En attente</div><div class="art-stat-key">Devis</div></div><div class="art-stat"><div class="art-stat-val">—</div><div class="art-stat-key">Marché</div></div><div class="art-stat"><div class="art-stat-val">—</div><div class="art-stat-key">Situations</div></div></div>
+        <div class="art-footer"><span class="art-link">→ Relancer l'artisan</span><span class="art-note">Devis demandé le 3 avr. 2026</span></div>
+      </div>
+      <div class="section-label">Client</div>
+      <div class="art-card">
+        <div class="art-card-top"><div class="avatar av-green">LL</div><div class="art-info"><div class="art-name">M. &amp; Mme Lefèvre</div><div class="art-lot">Portail client · Accès limité aux documents partagés</div></div><span class="status-pill sp-actif">Actif</span></div>
+        <div class="art-stats"><div class="art-stat"><div class="art-stat-val" style="color:var(--green-700)">3</div><div class="art-stat-key">Docs validés</div></div><div class="art-stat"><div class="art-stat-val">2</div><div class="art-stat-key">Docs lus</div></div><div class="art-stat"><div class="art-stat-val">0</div><div class="art-stat-key">En attente</div></div></div>
+        <div class="art-footer"><span class="art-link">→ Ouvrir le portail client</span><span class="art-note">Dernière connexion il y a 2 jours</span></div>
+      </div>
+      <div class="add-intervenant" onclick="alert('Inviter un intervenant...')"><span style="font-size:16px;color:var(--green-500)">+</span>Inviter un intervenant (artisan, BE, co-traitant)</div>
     </div>
+
   </div>
 </div>
-
-<!-- OVERLAY -->
-<div class="overlay" id="overlay" onclick="closeOnBg(event)">
-  <div class="modal" id="modal" onclick="event.stopPropagation()">
-    <div id="modal-content"></div>
-    <div class="modal-btns">
-      <button class="btn-s" onclick="closeOverlay()">Fermer</button>
-      <button class="btn-p" id="modal-btn" style="display:none" onclick="doAction()">—</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-const MODALS={
-  'nouveau-projet':{icon:'01',title:'Créer un nouveau projet',body:'Renseignez les informations de base : nom du client, type de projet, surface, budget et dates. Tailere crée automatiquement l\'arborescence documentaire et les phases selon le gabarit choisi.',steps:['Choisir un gabarit (résidentiel, commercial, ERP, réhabilitation)','Saisir les infos client, surface & budget','Inviter le client sur son espace dédié (email automatique)','Les tâches et documents types sont pré-configurés'],action:'Simuler la création',toast:'Projet créé — invitation client envoyée !'},
-  'projet-detail':{icon:'02',title:'Fiche projet détaillée',body:'Chaque projet centralise tout : phases, documents, budget, intervenants, historique des décisions. Cliquez sur une section pour y accéder directement.',steps:['Phases & avancement en temps réel','Documents classés par phase avec versionning','Budget engagé vs prévisionnel avec alertes','Intervenants et statut de chaque lot'],action:'Ouvrir le projet',toast:'Fiche projet ouverte'},
-  'stat-projets':{icon:'↗',title:'Projets actifs',body:'Ce chiffre regroupe tous les projets non archivés, quelle que soit leur phase. Un projet est archivé automatiquement 6 mois après livraison.',steps:['Cliquez pour filtrer la liste par phase','Chaque projet est cliquable pour accéder à sa fiche'],action:null},
-  'stat-chantier':{icon:'↗',title:'Projets en chantier',body:'Projets en phase DET (Direction de l\'Exécution des Travaux). CR hebdos automatiques, situations mensuelles, OPR.',steps:['Accès rapide au CR chantier depuis ce widget','Alertes réserves bloquantes en priorité'],action:null},
-  'stat-ca':{icon:'↗',title:'CA engagé',body:'Total des budgets travaux engagés sur tous les projets actifs. Évolue à chaque situation validée.',steps:['Cliquez pour voir le détail par projet','Alerte si un projet dépasse son enveloppe de 5%'],action:null},
-  'stat-livres':{icon:'↗',title:'Projets livrés ce mois',body:'Projets ayant reçu leur PV de réception signé. Le DOE a été compilé et transmis automatiquement.',steps:['Le client reçoit son accès DOE par email','Garanties décennale et biennale activées automatiquement'],action:null},
-  'notifs':{icon:'🔔',title:'Centre de notifications',body:'Toutes vos alertes classées par priorité : rouge (bloquant), orange (à traiter cette semaine), gris (information).',steps:['Relances auto si validation en attente > 3 jours','SMS si réserve bloquante sur chantier','Alertes délais administratifs 5 jours avant expiration'],action:null},
-  'alerte-validation':{icon:'!',title:'Validation en attente — Leblanc',body:'Votre client n\'a pas répondu au dossier APD depuis 3 jours. Une relance email a déjà été envoyée automatiquement.',steps:['J+3 : email de relance (déjà envoyé)','J+6 : SMS + email (action ici)','J+10 : alerte critique + appel recommandé'],action:'Envoyer SMS de relance',toast:'SMS envoyé à votre client'},
-  'alerte-budget':{icon:'!',title:'Dépassement budgétaire',body:'Le lot peinture dépasse de 6% son enveloppe. Le client a été notifié automatiquement. Une note explicative est requise.',steps:['Voir le détail du dépassement par sous-poste','Rédiger une note explicative (IA disponible)','Demander un avenant si nécessaire'],action:'Préparer la note client',toast:'Note client préparée avec l\'IA'},
-  'alerte-dp':{icon:'!',title:'Déclaration préalable — expiration',body:'La DP du projet Fontenay arrive à expiration dans 5 jours. Un renouvellement peut être nécessaire.',steps:['Vérifier le statut des travaux','Préparer le dossier de renouvellement','Déposer en mairie ou sur le guichet numérique'],action:'Préparer le renouvellement',toast:'Dossier de renouvellement préparé'},
-  'gabarits':{icon:'03',title:'Bibliothèque de gabarits',body:'Chaque gabarit pré-configure phases, tâches types, documents attendus et intervenants par défaut selon le type de projet.',steps:['Résidentiel : 5 phases, 23 tâches, 8 lots types','Commercial / Boutique : ERP et normes sécurité inclus','Hôtellerie : lots spécifiques (literie, signalétique)','Réhabilitation patrimoine : phases ABF incluses'],action:null},
-  'ia-cctp':{icon:'IA',title:'Génération IA — CCTP',body:'L\'IA génère votre CCTP en 30 secondes depuis le type de projet, la surface, les matériaux et la bibliothèque d\'ouvrages Tailere.',steps:['Sélectionnez le lot de travaux concerné','L\'IA rédige le CCTP complet avec prescriptions techniques','Vous éditez et validez en 5 minutes','Export PDF + DOCX + envoi automatique aux artisans'],action:'Générer un CCTP de démonstration',toast:'CCTP généré en 28 secondes !'},
-  'ia-cr':{icon:'IA',title:'Génération IA — Compte-rendu chantier',body:'L\'IA génère votre CR hebdomadaire depuis les données de la semaine : avancement des lots, réserves, photos, prochaines étapes.',steps:['L\'IA compile automatiquement les données de la semaine','Vous relisez et ajustez en 3 à 5 minutes','Envoyé au client et aux artisans en 1 clic','Archivé automatiquement dans le dossier projet'],action:'Générer un CR de démonstration',toast:'Compte-rendu généré — prêt à diffuser !'},
-  'reserve':{icon:'!',title:'Signaler une réserve technique',body:'Depuis le terrain (mobile), signalez une réserve sur le plan du chantier avec photo, description et artisan assigné. Mode hors-ligne disponible.',steps:['Localisez la réserve sur le plan importé','Prenez une photo directement depuis l\'app','Assignez à un artisan avec délai de levée','L\'artisan est notifié immédiatement (push + email)'],action:'Simuler une réserve',toast:'Réserve créée — artisan notifié'},
-  'situation':{icon:'04',title:'Situation de travaux',body:'L\'artisan dépose sa situation mensuelle depuis son portail. Vous la vérifiez, la validez, et le bon à payer est transmis automatiquement au client.',steps:['Artisan dépose sa situation depuis son portail','Architecte vérifie et valide','Alerte si dépassement > 5% du prévisionnel du lot','Client reçoit le bon à payer pour règlement'],action:'Simuler une validation',toast:'Situation validée — bon à payer envoyé'},
-  'opr':{icon:'05',title:'OPR — Réception sur mobile',body:'Sur chantier, saisissez les observations directement sur le plan. Chaque réserve est photographiée, localisée et assignée à l\'artisan responsable.',steps:['Importez le plan de masse du projet','Cliquez sur la zone défectueuse pour créer une réserve','Ajoutez photo + description + artisan concerné','Le PV de réception est généré automatiquement'],action:'Voir une simulation OPR',toast:'Simulation OPR lancée'},
-  'voir-doc':{icon:'06',title:'Visualisation de document',body:'Les PDF sont affichés dans Tailere avec les annotations positionnées. Vous voyez qui a commenté quoi, quand, et le statut de chaque annotation.',steps:['Zoom et navigation dans le plan','Annotations visibles avec auteur et date','Cliquez sur une annotation pour répondre','Transformez un commentaire en décision officielle'],action:'Voir le document annoté',toast:'Document ouvert avec annotations'},
-  'annoter':{icon:'07',title:'Annotation de plan',body:'Vous et votre client annotez directement sur le plan ou le moodboard. Chaque annotation est localisée, typée et tracée.',steps:['Cliquez sur le plan pour poser une annotation','Choisissez le type : question, modification, validation','Votre client est notifié et peut répondre','Transformez la décision en validation horodatée'],action:null},
-  'partager':{icon:'08',title:'Partager au client',body:'Contrôlez exactement ce que voit votre client et quand. Un document est privé par défaut — vous le rendez public quand vous êtes prêt.',steps:['Sélectionnez le document à partager','Choisissez les destinataires (client, artisan, BE)','Le client reçoit un email avec lien sécurisé','Vous voyez quand il l\'a consulté'],action:'Simuler le partage',toast:'Document partagé — client notifié'},
-  'deposer-doc':{icon:'09',title:'Déposer un document',body:'Uploadez tout type de fichier lié au projet. Le document est classé dans la bonne phase et notifié aux bonnes personnes.',steps:['Sélectionnez la phase (ESQ, APD, DCE, DET, OPR, DOE)','Uploadez : PDF, images, DWG, DOCX, XLS','Choisissez la visibilité : privé ou partagé','Notifications automatiques aux destinataires'],action:null},
-  'valider-devis':{icon:'10',title:'Validation de devis',body:'Comparez les devis reçus sur un tableau automatique. Sélectionnez l\'entreprise — l\'ordre de service est généré et signé automatiquement.',steps:['Tableau comparatif automatique (prix, délais, garanties)','Votre recommandation est préparée pour le client','Le client sélectionne et signe depuis son espace','L\'OS est émis à l\'artisan retenu'],action:'Voir le tableau comparatif',toast:'Tableau comparatif ouvert — 3 devis comparés'},
-  'comparatif':{icon:'11',title:'Tableau comparatif devis',body:'Tailere compare côte à côte tous les devis reçus pour un lot. Aide à la décision en 10 minutes au lieu de 4 heures sous Excel.',steps:['Artisans déposent leurs devis (portail ou import)','Tailere structure automatiquement les données','Vous ajoutez votre analyse et recommandation','Client choisit et signe depuis son espace'],action:null},
-  'nouveau-devis':{icon:'12',title:'Consulter un artisan',body:'Envoyez votre CCTP à un ou plusieurs artisans pour demande de devis. Tailere suit les réponses et relance automatiquement après 7 jours.',steps:['Sélectionnez le lot et le CCTP associé','Choisissez les artisans depuis l\'annuaire Tailere','Envoi automatique avec lien de dépôt sécurisé','Suivi des réponses avec relance auto J+7'],action:'Simuler un envoi',toast:'Appel d\'offres envoyé à 3 artisans'},
-  'portail-artisan':{icon:'13',title:'Portail artisan dédié',body:'Chaque artisan retenu reçoit un accès sécurisé cloisonné à son seul lot. Il voit son CCTP, son planning, les CR qui le concernent.',steps:['Accès uniquement à son lot (pas les autres artisans)','Dépose ses situations de travaux mensuelles','Reçoit les convocations de chantier','Remonte les réserves et photographie les levées'],action:'Voir le portail artisan',toast:'Accès portail artisan activé'},
-  'ajouter-artisan':{icon:'14',title:'Ajouter un intervenant',body:'Créez une fiche artisan dans votre annuaire Tailere. Retrouvez vos artisans de confiance et consultez leurs évaluations passées.',steps:['Nom, entreprise, spécialité, zone géographique','Contact, SIRET, assurances','Historique des projets communs','Notes et évaluation après réception de lot'],action:null},
-  'sourcing':{icon:'15',title:'Annuaire & sourcing artisans',body:'Votre carnet d\'adresses professionnel intégré à Tailere. Filtrez par spécialité, zone, évaluation.',steps:['Filtrez par spécialité et zone géographique','Évaluations basées sur vos projets précédents','Réseau de recommandation entre professionnels','Ajout direct à un projet depuis l\'annuaire'],action:null},
-  'brief-artisan':{icon:'IA',title:'Brief artisan — Génération IA',body:'L\'IA rédige un brief complet pour l\'artisan depuis le CCTP de son lot, le planning et les spécificités du projet.',steps:['L\'IA génère le brief depuis le CCTP du lot','Inclut : description, accès chantier, planning, contacts','Envoyé automatiquement avec l\'accès portail','L\'artisan a toutes les infos dès le premier jour'],action:'Générer un brief',toast:'Brief artisan généré en 18 secondes !'},
-  'select-projet':{icon:'→',title:'Changer de projet actif',body:'Naviguez entre vos projets depuis n\'importe quelle vue. Tous les modules se mettent à jour selon le projet sélectionné.',steps:['Cliquez sur le nom du projet pour changer','La vue est mémorisée par projet','Accès rapide aux derniers projets consultés'],action:null},
-};
-
-function nav(page,el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.s-item').forEach(i=>i.classList.remove('on'));
-  document.getElementById('page-'+page).classList.add('on');
-  const titles={dashboard:'Tableau de bord',projets:'Mes projets',phases:'Phases & jalons — Boutique Martin',documents:'Documents — Boutique Martin',budget:'Budget & devis — Boutique Martin',intervenants:'Intervenants — Boutique Martin'};
-  document.getElementById('page-title').textContent=titles[page]||page;
-  if(el) el.classList.add('on');
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    var name=this.dataset.tab;
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');p.style.display='none';});
+    this.classList.add('active');
+    var panel=document.getElementById('panel-'+name);
+    panel.style.display='block';
+    panel.classList.add('active');
+  });
+});
+document.querySelectorAll('.tab-panel').forEach(function(p){
+  if(!p.classList.contains('active')) p.style.display='none';
+});
+function toggleSection(id){
+  var files=document.getElementById('files-'+id);
+  var chev=document.getElementById('chev-'+id);
+  if(files.classList.contains('collapsed')){files.classList.remove('collapsed');chev.classList.add('open');}
+  else{files.classList.add('collapsed');chev.classList.remove('open');}
 }
-
-function popup(key){
-  const m=MODALS[key];if(!m)return;
-  const steps=m.steps.map((s,i)=>`<div class="modal-step"><div class="ms-n">${i+1}</div><div>${s}</div></div>`).join('');
-  document.getElementById('modal-content').innerHTML=`
-    <div class="modal-icon">${m.icon}</div>
-    <div class="modal-title">${m.title}</div>
-    <div class="modal-body">${m.body}</div>
-    <div class="modal-steps">${steps}</div>`;
-  const btn=document.getElementById('modal-btn');
-  if(m.action){btn.style.display='';btn.textContent=m.action;btn.dataset.key=key;}
-  else btn.style.display='none';
-  document.getElementById('overlay').classList.add('show');
-}
-
-function doAction(){
-  const key=document.getElementById('modal-btn').dataset.key;
-  const m=MODALS[key];
-  closeOverlay();
-  if(m&&m.toast) showToast(m.toast);
-}
-
-function closeOnBg(e){if(e.target.id==='overlay')closeOverlay();}
-function closeOverlay(){document.getElementById('overlay').classList.remove('show');}
-
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOverlay();});
 </script>
 </body>
 </html>
