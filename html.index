@@ -282,6 +282,107 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--gray-800);color:var(--white);font-size:13px;padding:10px 18px;border-radius:var(--r-md);z-index:1000;opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;}
 .toast.show{opacity:1;transform:translateY(0);}
+/* ── NAV TABS (topbar) ── */
+.topbar-nav{display:flex;gap:2px;margin-left:8px;}
+.topbar-tab{font-size:13px;padding:6px 14px;border-radius:var(--r-sm);cursor:pointer;color:var(--gray-400);transition:background .15s,color .15s;border:none;background:transparent;font-family:var(--font-sans);}
+.topbar-tab:hover{background:var(--cream);color:var(--gray-800);}
+.topbar-tab.active{background:var(--green-50);color:var(--green-700);font-weight:500;}
+/* ── VUE FINANCIÈRE GLOBALE ── */
+.fin-section{padding:0 24px 32px;}
+.fin-header{padding:28px 24px 20px;display:flex;align-items:flex-end;justify-content:space-between;}
+.fin-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
+.fin-kpi{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-md);padding:14px 16px;}
+.fin-kpi-label{font-size:11px;color:var(--gray-400);margin-bottom:4px;}
+.fin-kpi-val{font-size:22px;font-weight:500;letter-spacing:-0.03em;color:var(--gray-800);}
+.fin-kpi-sub{font-size:11px;margin-top:3px;}
+.fin-kpi-bar{height:4px;background:var(--cream-dark);border-radius:2px;margin-top:8px;overflow:hidden;}
+.fin-kpi-bar-fill{height:100%;border-radius:2px;}
+.fin-table-wrap{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:20px;}
+.fin-table-head{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;padding:10px 18px;background:var(--cream);border-bottom:0.5px solid var(--cream-border);gap:8px;}
+.fin-th{font-size:11px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;}
+.fin-row{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;padding:13px 18px;border-bottom:0.5px solid #F5F0E8;align-items:center;gap:8px;cursor:pointer;transition:background .1s;}
+.fin-row:last-child{border-bottom:none;}
+.fin-row:hover{background:var(--cream);}
+.fin-row.total-row{background:var(--cream);border-top:1px solid var(--cream-border);cursor:default;}
+.fin-row.total-row:hover{background:var(--cream);}
+.fin-proj-name{font-size:13px;font-weight:500;color:var(--gray-800);}
+.fin-proj-client{font-size:11px;color:var(--gray-400);margin-top:1px;}
+.fin-cell{font-size:13px;color:var(--gray-800);}
+.fin-cell.green{color:var(--green-700);font-weight:500;}
+.fin-cell.warn{color:var(--amber-700);font-weight:500;}
+.fin-cell.muted{color:var(--gray-400);}
+.fin-cell.bold{font-weight:500;}
+.fin-mini-bar{height:4px;background:var(--cream-dark);border-radius:2px;margin-top:5px;overflow:hidden;width:80px;}
+.fin-mini-bar-fill{height:100%;background:var(--green-500);border-radius:2px;}
+.fin-alerts{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.fin-alert-row{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-md);padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.fin-alert-row.urgent{border-color:var(--amber-border);background:var(--amber-50);}
+.fin-alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.fin-alert-dot.green{background:var(--green-500);}
+.fin-alert-dot.amber{background:var(--amber-700);}
+.fin-alert-dot.gray{background:var(--cream-border);}
+.fin-alert-text{flex:1;font-size:12px;color:var(--gray-800);line-height:1.4;}
+.fin-alert-amount{font-size:14px;font-weight:500;min-width:80px;text-align:right;}
+.fin-alert-action{font-family:var(--font-sans);font-size:11px;font-weight:500;padding:5px 10px;border-radius:var(--r-sm);cursor:pointer;border:0.5px solid var(--cream-border);background:var(--white);color:var(--gray-600);white-space:nowrap;}
+.fin-alert-action:hover{background:var(--cream);}
+.fin-chart-wrap{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-lg);padding:18px 20px;margin-bottom:20px;}
+.fin-chart-title{font-size:12px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;}
+.fin-bar-chart{display:flex;align-items:flex-end;gap:10px;height:120px;border-bottom:0.5px solid var(--cream-border);padding-bottom:0;}
+.fin-bar-group{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.fin-bars{display:flex;gap:3px;align-items:flex-end;height:100px;}
+.fin-bar{border-radius:3px 3px 0 0;min-width:18px;transition:opacity .15s;}
+.fin-bar:hover{opacity:.8;}
+.fin-bar-label{font-size:10px;color:var(--gray-400);margin-top:6px;white-space:nowrap;}
+.fin-chart-legend{display:flex;gap:16px;margin-top:12px;}
+.fin-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray-400);}
+.fin-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+/* ── HONORAIRES ── */
+.hon-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.hon-kpi{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-md);padding:12px 16px;}
+.hon-kpi-label{font-size:11px;color:var(--gray-400);margin-bottom:4px;}
+.hon-kpi-val{font-size:20px;font-weight:500;letter-spacing:-0.02em;color:var(--gray-800);}
+.hon-kpi-sub{font-size:11px;margin-top:2px;}
+.hon-progress-wrap{height:6px;background:var(--cream-dark);border-radius:3px;margin-top:8px;overflow:hidden;}
+.hon-progress-fill{height:100%;border-radius:3px;transition:width .4s;}
+.hon-table-wrap{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px;}
+.hon-table-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:10px 16px;background:var(--cream);border-bottom:0.5px solid var(--cream-border);gap:8px;}
+.hon-th{font-size:11px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;}
+.hon-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:12px 16px;border-bottom:0.5px solid #F5F0E8;align-items:center;gap:8px;transition:background .1s;}
+.hon-row:last-child{border-bottom:none;}
+.hon-row:hover{background:var(--cream);}
+.hon-phase-name{font-size:13px;font-weight:500;color:var(--gray-800);}
+.hon-phase-sub{font-size:11px;color:var(--gray-400);margin-top:1px;}
+.hon-cell{font-size:13px;color:var(--gray-800);}
+.hon-cell.muted{color:var(--gray-400);}
+.hon-cell.green{color:var(--green-700);font-weight:500;}
+.hon-cell.warn{color:var(--amber-700);font-weight:500;}
+.hon-status-pill{font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;display:inline-block;}
+.hsp-paye{background:var(--green-50);color:var(--green-700);border:0.5px solid var(--green-200);}
+.hsp-envoye{background:var(--blue-50);color:var(--blue-700);border:0.5px solid #B5D4F4;}
+.hsp-attente{background:var(--amber-50);color:var(--amber-700);border:0.5px solid var(--amber-border);}
+.hsp-afacturer{background:var(--cream);color:var(--gray-400);border:0.5px solid var(--cream-border);}
+.hon-action-btn{font-family:var(--font-sans);font-size:11px;font-weight:500;padding:4px 10px;border-radius:var(--r-sm);cursor:pointer;border:0.5px solid var(--cream-border);background:var(--white);color:var(--gray-600);transition:background .15s;}
+.hon-action-btn:hover{background:var(--cream);}
+.hon-action-btn.primary{background:var(--green-700);color:var(--white);border-color:var(--green-700);}
+.hon-action-btn.primary:hover{background:var(--green-900);}
+.hon-timeline{background:var(--white);border:0.5px solid var(--cream-border);border-radius:var(--r-lg);padding:16px 20px;margin-bottom:16px;}
+.hon-timeline-title{font-size:12px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;}
+.hon-tl-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;}
+.hon-tl-row:last-child{margin-bottom:0;}
+.hon-tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:2px solid transparent;}
+.hon-tl-dot.paid{background:var(--green-700);border-color:var(--green-700);}
+.hon-tl-dot.sent{background:var(--blue-700);border-color:var(--blue-700);}
+.hon-tl-dot.pending{background:var(--white);border-color:var(--cream-border);}
+.hon-tl-line{position:absolute;left:4px;top:14px;width:2px;height:calc(100% + 6px);background:var(--cream-border);}
+.hon-tl-row:last-child .hon-tl-line{display:none;}
+.hon-tl-label{flex:1;font-size:13px;color:var(--gray-800);}
+.hon-tl-date{font-size:11px;color:var(--gray-400);}
+.hon-tl-amount{font-size:13px;font-weight:500;color:var(--gray-800);}
+.hon-tl-status{font-size:10px;padding:2px 8px;border-radius:10px;}
+.hon-alert-banner{background:var(--amber-50);border:0.5px solid var(--amber-border);border-radius:var(--r-md);padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.hon-alert-icon{font-size:16px;flex-shrink:0;}
+.hon-alert-text{font-size:12px;color:var(--amber-700);flex:1;line-height:1.5;}
+.hon-alert-action{font-family:var(--font-sans);font-size:12px;font-weight:500;padding:6px 12px;border-radius:var(--r-sm);cursor:pointer;background:var(--amber-700);color:var(--white);border:none;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -292,6 +393,10 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
   <div class="topbar-sep">·</div>
   <div class="breadcrumb" id="breadcrumb">
     <span>Projets</span>
+  </div>
+  <div class="topbar-nav">
+    <button class="topbar-tab active" id="nav-projets" onclick="goToList()" data-tip="Liste de tous vos projets">Projets</button>
+    <button class="topbar-tab" id="nav-finances" onclick="goToFinances()" data-tip="Vue globale des encaissements et honoraires sur tous les projets">Finances</button>
   </div>
   <div class="topbar-actions" id="topbar-actions">
     <button class="btn" data-tip="Rechercher parmi vos projets, clients, documents" onclick="document.querySelector('.search-input').focus()">Rechercher</button>
@@ -461,6 +566,199 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
   </div>
 </div>
 
+<!-- ═══════════ VUE : FINANCES GLOBALES ═══════════ -->
+<div class="view" id="view-finances">
+  <div class="fin-header">
+    <div>
+      <div class="projects-title">Finances</div>
+      <div class="projects-sub">Vue globale des honoraires &amp; encaissements — tous projets actifs</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn" data-tip="Exporter le tableau de synthèse en Excel ou PDF" onclick="showToast('Export en cours…')">Exporter</button>
+      <button class="btn primary" data-tip="Émettre une nouvelle facture sur l'un des projets" onclick="showToast('Sélectionnez un projet pour facturer')">+ Nouvelle facture</button>
+    </div>
+  </div>
+
+  <div class="fin-section">
+
+    <!-- KPIs globaux -->
+    <div class="fin-kpis">
+      <div class="fin-kpi">
+        <div class="fin-kpi-label">Total honoraires HT</div>
+        <div class="fin-kpi-val">68 400 €</div>
+        <div class="fin-kpi-sub" style="color:var(--gray-400)">6 projets actifs</div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-label">Encaissé YTD</div>
+        <div class="fin-kpi-val" style="color:var(--green-700)">31 200 €</div>
+        <div class="fin-kpi-sub" style="color:var(--green-500)">46% du total</div>
+        <div class="fin-kpi-bar"><div class="fin-kpi-bar-fill" style="width:46%;background:var(--green-500)"></div></div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-label">En attente de règlement</div>
+        <div class="fin-kpi-val" style="color:var(--amber-700)">11 400 €</div>
+        <div class="fin-kpi-sub" style="color:var(--amber-700)">3 factures envoyées</div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-label">Restant à facturer</div>
+        <div class="fin-kpi-val">25 800 €</div>
+        <div class="fin-kpi-sub" style="color:var(--gray-400)">Phases à venir</div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-label">En retard de paiement</div>
+        <div class="fin-kpi-val" style="color:var(--red-700)">2</div>
+        <div class="fin-kpi-sub" style="color:var(--red-700)">Relances à envoyer</div>
+      </div>
+    </div>
+
+    <!-- Alertes -->
+    <div class="section-label">Actions requises</div>
+    <div class="fin-alerts">
+      <div class="fin-alert-row urgent">
+        <div class="fin-alert-dot amber"></div>
+        <div class="fin-alert-text">
+          <strong>Appartement Raspail</strong> — Acompte mi-projet · F2026-004 envoyée le 2 avr. · <span style="color:var(--amber-700)">J+5 dépassé</span>
+        </div>
+        <div class="fin-alert-amount" style="color:var(--amber-700)">5 112 € TTC</div>
+        <button class="fin-alert-action" data-tip="Envoyer un email de relance à M. & Mme Lefèvre" onclick="showToast('Relance envoyée — Lefèvre')">Relancer</button>
+      </div>
+      <div class="fin-alert-row urgent">
+        <div class="fin-alert-dot amber"></div>
+        <div class="fin-alert-text">
+          <strong>Penthouse Opéra</strong> — Solde chantier · F2026-009 envoyée le 28 mars · <span style="color:var(--amber-700)">J+10 dépassé</span>
+        </div>
+        <div class="fin-alert-amount" style="color:var(--amber-700)">6 288 € TTC</div>
+        <button class="fin-alert-action" data-tip="Envoyer un email de relance à M. Bertrand" onclick="showToast('Relance envoyée — Bertrand')">Relancer</button>
+      </div>
+      <div class="fin-alert-row">
+        <div class="fin-alert-dot green"></div>
+        <div class="fin-alert-text">
+          <strong>Villa Saint-Cloud</strong> — Acompte mi-projet facturable · Chantier à 62%
+        </div>
+        <div class="fin-alert-amount" style="color:var(--green-700)">9 600 € TTC</div>
+        <button class="fin-alert-action" data-tip="Générer et envoyer la facture d'acompte mi-projet à la famille Dumont" onclick="showToast('Facture générée — Dumont')">Facturer</button>
+      </div>
+    </div>
+
+    <!-- Tableau par projet -->
+    <div class="section-label">Détail par projet</div>
+    <div class="fin-table-wrap">
+      <div class="fin-table-head">
+        <div class="fin-th">Projet · Client</div>
+        <div class="fin-th">Honoraires HT</div>
+        <div class="fin-th">Encaissé</div>
+        <div class="fin-th">En attente</div>
+        <div class="fin-th">À facturer</div>
+        <div class="fin-th">Avancement</div>
+      </div>
+
+      <!-- Raspail -->
+      <div class="fin-row" onclick="goToProject()">
+        <div>
+          <div class="fin-proj-name">Appartement Raspail</div>
+          <div class="fin-proj-client">M. &amp; Mme Lefèvre · DCE</div>
+        </div>
+        <div class="fin-cell bold">14 200 €</div>
+        <div class="fin-cell green">5 680 €</div>
+        <div class="fin-cell warn">4 260 € ⚠</div>
+        <div class="fin-cell muted">4 260 €</div>
+        <div>
+          <div class="fin-cell" style="font-size:12px">40% encaissé</div>
+          <div class="fin-mini-bar"><div class="fin-mini-bar-fill" style="width:40%"></div></div>
+        </div>
+      </div>
+
+      <!-- Saint-Cloud -->
+      <div class="fin-row" onclick="goToProject()">
+        <div>
+          <div class="fin-proj-name">Villa Saint-Cloud</div>
+          <div class="fin-proj-client">Famille Dumont · Chantier</div>
+        </div>
+        <div class="fin-cell bold">24 000 €</div>
+        <div class="fin-cell green">9 600 €</div>
+        <div class="fin-cell muted">—</div>
+        <div class="fin-cell" style="color:var(--green-700);font-weight:500">8 000 €</div>
+        <div>
+          <div class="fin-cell" style="font-size:12px">40% encaissé</div>
+          <div class="fin-mini-bar"><div class="fin-mini-bar-fill" style="width:40%"></div></div>
+        </div>
+      </div>
+
+      <!-- Boutique Marais -->
+      <div class="fin-row" onclick="goToProject()">
+        <div>
+          <div class="fin-proj-name">Boutique Le Marais</div>
+          <div class="fin-proj-client">Mme Fontaine · APS</div>
+        </div>
+        <div class="fin-cell bold">6 800 €</div>
+        <div class="fin-cell green">2 720 €</div>
+        <div class="fin-cell muted">—</div>
+        <div class="fin-cell muted">4 080 €</div>
+        <div>
+          <div class="fin-cell" style="font-size:12px">40% encaissé</div>
+          <div class="fin-mini-bar"><div class="fin-mini-bar-fill" style="width:40%"></div></div>
+        </div>
+      </div>
+
+      <!-- Penthouse -->
+      <div class="fin-row" onclick="goToProject()">
+        <div>
+          <div class="fin-proj-name">Penthouse Opéra</div>
+          <div class="fin-proj-client">M. Bertrand · Chantier 80%</div>
+        </div>
+        <div class="fin-cell bold">14 600 €</div>
+        <div class="fin-cell green">5 840 €</div>
+        <div class="fin-cell warn">5 240 € ⚠</div>
+        <div class="fin-cell muted">3 520 €</div>
+        <div>
+          <div class="fin-cell" style="font-size:12px">40% encaissé</div>
+          <div class="fin-mini-bar"><div class="fin-mini-bar-fill" style="width:40%"></div></div>
+        </div>
+      </div>
+
+      <!-- Maison Bordeaux -->
+      <div class="fin-row" onclick="goToProject()">
+        <div>
+          <div class="fin-proj-name">Maison Bordeaux</div>
+          <div class="fin-proj-client">M. &amp; Mme Girard · Livré</div>
+        </div>
+        <div class="fin-cell bold">8 000 €</div>
+        <div class="fin-cell green" style="color:var(--green-700)">8 000 €</div>
+        <div class="fin-cell muted">—</div>
+        <div class="fin-cell muted">—</div>
+        <div>
+          <div class="fin-cell" style="font-size:12px;color:var(--green-700)">100% soldé ✓</div>
+          <div class="fin-mini-bar"><div class="fin-mini-bar-fill" style="width:100%;background:var(--green-700)"></div></div>
+        </div>
+      </div>
+
+      <!-- Ligne total -->
+      <div class="fin-row total-row">
+        <div><div class="fin-proj-name" style="color:var(--gray-400)">Total</div></div>
+        <div class="fin-cell bold">68 400 €</div>
+        <div class="fin-cell bold" style="color:var(--green-700)">31 840 €</div>
+        <div class="fin-cell bold" style="color:var(--amber-700)">9 500 €</div>
+        <div class="fin-cell bold">19 860 €</div>
+        <div>
+          <div class="fin-cell" style="font-size:12px">47% encaissé</div>
+          <div class="fin-mini-bar"><div class="fin-mini-bar-fill" style="width:47%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphique mensuel -->
+    <div class="section-label">Encaissements mensuels 2026</div>
+    <div class="fin-chart-wrap">
+      <div class="fin-bar-chart" id="fin-chart"></div>
+      <div class="fin-chart-legend">
+        <div class="fin-legend-item"><div class="fin-legend-dot" style="background:var(--green-700)"></div>Encaissé</div>
+        <div class="fin-legend-item"><div class="fin-legend-dot" style="background:var(--green-200)"></div>Prévu</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- ═══════════ VUE : FICHE PROJET ═══════════ -->
 <div class="view" id="view-project">
   <div class="project-header">
@@ -489,6 +787,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
       <div class="tab" data-tab="cr" data-tip="Comptes-rendus de chantier — générés automatiquement par IA en 25 secondes">Comptes-rendus <span class="tab-pill tp-red">1 nouveau</span></div>
       <div class="tab" data-tab="gantt" data-tip="Planning Gantt — toutes les phases, les lots artisans, et la ligne du temps">Planning</div>
       <div class="tab" data-tab="art" data-tip="Portail artisan cloisonné — chaque intervenant accède uniquement à son lot">Intervenants <span class="tab-pill tp-green">5</span></div>
+      <div class="tab" data-tab="honoraires" data-tip="Suivi des honoraires architecte — acomptes, factures, paiements reçus et à venir">Honoraires <span class="tab-pill tp-red">1 à encaisser</span></div>
     </div>
   </div>
 
@@ -630,8 +929,146 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
       </div>
       <div class="add-intervenant" data-tip="Ajouter un artisan, un bureau d'études, un co-traitant ou un sous-traitant à ce projet" onclick="showToast('Invitation d\'un nouvel intervenant…')"><span style="font-size:16px;color:var(--green-500)">+</span>Inviter un intervenant (artisan, BE, co-traitant)</div>
     </div>
-  </div>
-</div>
+
+    <!-- HONORAIRES -->
+    <div class="tab-panel" id="panel-honoraires">
+
+      <!-- KPIs -->
+      <div class="hon-summary">
+        <div class="hon-kpi">
+          <div class="hon-kpi-label">Total honoraires HT</div>
+          <div class="hon-kpi-val">14 200 €</div>
+          <div class="hon-kpi-sub" style="color:var(--gray-400)">10% du budget travaux</div>
+        </div>
+        <div class="hon-kpi">
+          <div class="hon-kpi-label">Encaissé</div>
+          <div class="hon-kpi-val" style="color:var(--green-700)">5 680 €</div>
+          <div class="hon-kpi-sub" style="color:var(--green-500)">40% du total HT</div>
+          <div class="hon-progress-wrap"><div class="hon-progress-fill" style="width:40%;background:var(--green-500)"></div></div>
+        </div>
+        <div class="hon-kpi">
+          <div class="hon-kpi-label">En attente de règlement</div>
+          <div class="hon-kpi-val" style="color:var(--amber-700)">5 112 €</div>
+          <div class="hon-kpi-sub" style="color:var(--amber-700)">Facture envoyée · J+5</div>
+        </div>
+        <div class="hon-kpi">
+          <div class="hon-kpi-label">Solde à facturer</div>
+          <div class="hon-kpi-val">5 680 €</div>
+          <div class="hon-kpi-sub" style="color:var(--gray-400)">À la réception · oct. 2026</div>
+        </div>
+      </div>
+
+      <!-- Alerte acompte en attente -->
+      <div class="hon-alert-banner">
+        <div class="hon-alert-icon">⚠</div>
+        <div class="hon-alert-text"><strong>Acompte mi-projet en attente de paiement</strong> — Facture F2026-004 de 5 112 € TTC envoyée le 2 avr. 2026. Échéance dépassée de 5 jours. M. &amp; Mme Lefèvre n'ont pas encore réglé.</div>
+        <button class="hon-alert-action" data-tip="Envoyer un email de relance au client avec rappel de la facture et lien de virement" onclick="showToast('Email de relance envoyé à M. & Mme Lefèvre')">Relancer le client</button>
+      </div>
+
+      <!-- Tableau des 3 acomptes -->
+      <div class="section-label">Échéancier</div>
+      <div class="hon-table-wrap">
+        <div class="hon-table-header">
+          <div class="hon-th">Appel de fonds</div>
+          <div class="hon-th">Quote-part</div>
+          <div class="hon-th">Montant HT</div>
+          <div class="hon-th">TVA 20%</div>
+          <div class="hon-th">TTC</div>
+          <div class="hon-th">Statut &amp; action</div>
+        </div>
+
+        <!-- Acompte 1 — payé -->
+        <div class="hon-row">
+          <div>
+            <div class="hon-phase-name">Acompte de départ</div>
+            <div class="hon-phase-sub">À la signature du contrat · Facture F2026-001 · 14 jan. 2026</div>
+          </div>
+          <div class="hon-cell">40%</div>
+          <div class="hon-cell">5 680 €</div>
+          <div class="hon-cell muted">1 136 €</div>
+          <div class="hon-cell green">6 816 €</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="hon-status-pill hsp-paye">Payé ✓</span>
+            <button class="hon-action-btn" data-tip="Télécharger la facture F2026-001 en PDF" onclick="showToast('Téléchargement F2026-001…')">PDF</button>
+          </div>
+        </div>
+
+        <!-- Acompte 2 — facturé, en attente -->
+        <div class="hon-row" style="background:#FFFBF3;">
+          <div>
+            <div class="hon-phase-name">Acompte mi-projet</div>
+            <div class="hon-phase-sub">À la validation APD / mi-chantier · Facture F2026-004 · 2 avr. 2026</div>
+          </div>
+          <div class="hon-cell">40%</div>
+          <div class="hon-cell">5 680 €</div>
+          <div class="hon-cell muted">1 136 €</div>
+          <div class="hon-cell warn">5 112 € ⚠</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="hon-status-pill hsp-envoye">Envoyé</span>
+            <button class="hon-action-btn" data-tip="Télécharger la facture F2026-004 en PDF" onclick="showToast('Téléchargement F2026-004…')">PDF</button>
+            <button class="hon-action-btn primary" data-tip="Marquer cet acompte comme encaissé après réception du virement bancaire" onclick="showToast('Acompte mi-projet marqué encaissé ✓')">Encaissé</button>
+          </div>
+        </div>
+
+        <!-- Solde — à facturer -->
+        <div class="hon-row">
+          <div>
+            <div class="hon-phase-name">Solde final</div>
+            <div class="hon-phase-sub">À la signature du PV de réception OPR · Prévu oct. 2026</div>
+          </div>
+          <div class="hon-cell">20%</div>
+          <div class="hon-cell">2 840 €</div>
+          <div class="hon-cell muted">568 €</div>
+          <div class="hon-cell muted">3 408 €</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="hon-status-pill hsp-afacturer">À facturer</span>
+            <button class="hon-action-btn" disabled style="opacity:.35;cursor:default" data-tip="Le solde sera facturable uniquement après signature du PV de réception — OPR prévue oct. 2026">Facturer</button>
+          </div>
+        </div>
+
+        <!-- Ligne total -->
+        <div class="hon-row" style="background:var(--cream);border-top:1px solid var(--cream-border);">
+          <div><div class="hon-phase-name" style="color:var(--gray-400);font-weight:500">Total</div></div>
+          <div class="hon-cell" style="font-weight:500">100%</div>
+          <div class="hon-cell" style="font-weight:500">14 200 €</div>
+          <div class="hon-cell" style="font-weight:500">2 840 €</div>
+          <div class="hon-cell" style="font-weight:500">17 040 €</div>
+          <div></div>
+        </div>
+
+      </div>
+
+      <!-- Timeline -->
+      <div class="section-label">Chronologie des paiements</div>
+      <div class="hon-timeline">
+        <div class="hon-tl-row">
+          <div style="position:relative"><div class="hon-tl-dot paid"></div><div class="hon-tl-line"></div></div>
+          <div class="hon-tl-label">Acompte de départ encaissé par virement — F2026-001</div>
+          <div class="hon-tl-amount" style="color:var(--green-700)">+ 6 816 € TTC</div>
+          <div class="hon-tl-date" style="margin-left:12px;min-width:90px;text-align:right">14 jan. 2026</div>
+        </div>
+        <div class="hon-tl-row">
+          <div style="position:relative"><div class="hon-tl-dot sent"></div><div class="hon-tl-line"></div></div>
+          <div class="hon-tl-label">Acompte mi-projet facturé — F2026-004 · en attente de règlement</div>
+          <div class="hon-tl-amount" style="color:var(--amber-700)">5 112 € TTC</div>
+          <div class="hon-tl-date" style="margin-left:12px;min-width:90px;text-align:right">2 avr. 2026</div>
+        </div>
+        <div class="hon-tl-row">
+          <div style="position:relative"><div class="hon-tl-dot pending"></div></div>
+          <div class="hon-tl-label" style="color:var(--gray-400)">Solde final — après réception OPR (prévu)</div>
+          <div class="hon-tl-amount" style="color:var(--gray-400)">3 408 € TTC</div>
+          <div class="hon-tl-date" style="margin-left:12px;min-width:90px;text-align:right;color:var(--gray-400)">oct. 2026</div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px;">
+        <button class="btn" data-tip="Modifier les pourcentages ou les déclencheurs de chaque appel de fonds" onclick="showToast('Modification de l\'échéancier…')">Modifier l'échéancier</button>
+        <button class="btn primary" data-tip="Générer et envoyer une facture au client par email avec calcul TVA automatique" onclick="showToast('Nouvelle facture générée et envoyée')">+ Nouvelle facture</button>
+      </div>
+
+    </div>
+  </div><!-- /main -->
+</div><!-- /view-project -->
 
 <!-- ═══════════ MODAL CRÉATION PROJET ═══════════ -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalIfOutside(event)">
@@ -643,30 +1080,35 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
     <div class="modal-body">
       <div class="form-section-title">Gabarit de projet</div>
       <div class="gabarit-grid">
-        <label class="gabarit-card selected" onclick="selectGabarit(this)">
-          <input type="radio" name="gabarit" value="residentiell" checked>
+        <label class="gabarit-card selected" onclick="selectGabarit(this,'residentiel')">
+          <input type="radio" name="gabarit" value="residentiel" checked>
           <div class="gabarit-name">Résidentiel</div>
           <div class="gabarit-desc">Appartement, maison, villa — rénovation ou aménagement</div>
-          <div class="gabarit-phases">ESQ → APS → APD → DCE → DET → OPR → DAACT</div>
         </label>
-        <label class="gabarit-card" onclick="selectGabarit(this)">
+        <label class="gabarit-card" onclick="selectGabarit(this,'commercial')">
           <input type="radio" name="gabarit" value="commercial">
           <div class="gabarit-name">Commercial / ERP</div>
           <div class="gabarit-desc">Boutique, restaurant, bureau, espace recevant du public</div>
-          <div class="gabarit-phases">ESQ → APS → APD → DCE → DET → ERP → OPR</div>
         </label>
-        <label class="gabarit-card" onclick="selectGabarit(this)">
+        <label class="gabarit-card" onclick="selectGabarit(this,'tertiaire')">
           <input type="radio" name="gabarit" value="tertiaire">
           <div class="gabarit-name">Tertiaire</div>
           <div class="gabarit-desc">Bureau, open space, coworking, siège social</div>
-          <div class="gabarit-phases">ESQ → APD → DCE → DET → OPR</div>
         </label>
-        <label class="gabarit-card" onclick="selectGabarit(this)">
+        <label class="gabarit-card" onclick="selectGabarit(this,'sourcing')">
           <input type="radio" name="gabarit" value="sourcing">
           <div class="gabarit-name">Sourcing &amp; mobilier</div>
           <div class="gabarit-desc">Projet focalisé sur la sélection et commande de mobilier</div>
-          <div class="gabarit-phases">Sélection → Proposition → Commande → Livraison</div>
         </label>
+      </div>
+
+      <div class="form-section-title" style="margin-top:20px">
+        Phases du projet
+        <span style="font-size:11px;font-weight:400;color:var(--gray-400);text-transform:none;letter-spacing:0;margin-left:8px">Cochez uniquement les phases nécessaires à votre mission</span>
+      </div>
+      <div id="phases-selector" style="display:flex;flex-direction:column;gap:6px;"></div>
+      <div style="margin-top:10px;padding:10px 14px;background:var(--cream);border-radius:var(--r-md);border:0.5px solid var(--cream-border);font-size:12px;color:var(--gray-400);">
+        Séquence retenue : <strong id="phases-preview" style="color:var(--gray-800);font-weight:500;"></strong>
       </div>
 
       <div class="form-section-title">Informations générales</div>
@@ -690,9 +1132,14 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
           <input type="number" placeholder="ex : 150000" id="input-budget">
         </div>
         <div>
-          <label>Date de livraison souhaitée</label>
-          <input type="text" placeholder="ex : jan. 2027" id="input-delivery">
+          <label>Budget mobilier estimé (€)</label>
+          <input type="number" placeholder="ex : 25000" id="input-budget-mobilier">
+          <div class="field-hint">Sourcing catalogue Tailere — 157 marques premium</div>
         </div>
+      </div>
+      <div class="form-row">
+        <label>Date de livraison souhaitée</label>
+        <input type="text" placeholder="ex : jan. 2027" id="input-delivery">
       </div>
 
       <div class="form-section-title">Client</div>
@@ -737,16 +1184,72 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10
 function goToList(){
   document.getElementById('view-list').classList.add('active');
   document.getElementById('view-project').classList.remove('active');
+  document.getElementById('view-finances').classList.remove('active');
   document.getElementById('breadcrumb').innerHTML='<span>Projets</span>';
   document.getElementById('topbar-actions').innerHTML=`
     <button class="btn" data-tip="Rechercher parmi vos projets, clients, documents" onclick="document.querySelector('.search-input').focus()">Rechercher</button>
     <button class="btn primary" data-tip="Créer un nouveau projet depuis un gabarit (résidentiel, tertiaire, commercial…)" onclick="openModal()">+ Nouveau projet</button>`;
+  document.getElementById('nav-projets').classList.add('active');
+  document.getElementById('nav-finances').classList.remove('active');
 }
 function goToProject(){
   document.getElementById('view-list').classList.remove('active');
+  document.getElementById('view-finances').classList.remove('active');
   document.getElementById('view-project').classList.add('active');
   document.getElementById('breadcrumb').innerHTML=`<a onclick="goToList()">Projets</a><span style="color:var(--cream-border);margin:0 4px">›</span><span>Appartement Raspail</span>`;
   document.getElementById('topbar-actions').innerHTML='';
+  document.getElementById('nav-projets').classList.remove('active');
+  document.getElementById('nav-finances').classList.remove('active');
+}
+function goToFinances(){
+  document.getElementById('view-list').classList.remove('active');
+  document.getElementById('view-project').classList.remove('active');
+  document.getElementById('view-finances').classList.add('active');
+  document.getElementById('breadcrumb').innerHTML='<span>Finances</span>';
+  document.getElementById('topbar-actions').innerHTML='';
+  document.getElementById('nav-projets').classList.remove('active');
+  document.getElementById('nav-finances').classList.add('active');
+  renderFinChart();
+}
+function renderFinChart(){
+  var chart = document.getElementById('fin-chart');
+  if(!chart || chart.dataset.rendered) return;
+  chart.dataset.rendered = '1';
+  var months = ['Jan','Fév','Mars','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc'];
+  var encaisse = [6816, 3408, 3408, 0, 0, 9600, 0, 0, 0, 0, 0, 0];
+  var prevu    = [0,    0,    0,    5112, 8000, 0, 7200, 4800, 0, 3408, 6000, 4200];
+  var max = Math.max.apply(null, encaisse.concat(prevu));
+  months.forEach(function(m, i){
+    var g = document.createElement('div');
+    g.className = 'fin-bar-group';
+    var bars = document.createElement('div');
+    bars.className = 'fin-bars';
+    if(encaisse[i]){
+      var b = document.createElement('div');
+      b.className = 'fin-bar';
+      b.style.cssText = 'background:var(--green-700);height:'+Math.round((encaisse[i]/max)*96)+'px;';
+      b.title = encaisse[i].toLocaleString('fr-FR')+'€ encaissé';
+      bars.appendChild(b);
+    }
+    if(prevu[i]){
+      var b2 = document.createElement('div');
+      b2.className = 'fin-bar';
+      b2.style.cssText = 'background:var(--green-200);height:'+Math.round((prevu[i]/max)*96)+'px;';
+      b2.title = prevu[i].toLocaleString('fr-FR')+'€ prévu';
+      bars.appendChild(b2);
+    }
+    if(!encaisse[i] && !prevu[i]){
+      var empty = document.createElement('div');
+      empty.style.cssText = 'width:18px;height:4px;background:var(--cream-dark);border-radius:2px;';
+      bars.appendChild(empty);
+    }
+    var lbl = document.createElement('div');
+    lbl.className = 'fin-bar-label';
+    lbl.textContent = m;
+    g.appendChild(bars);
+    g.appendChild(lbl);
+    chart.appendChild(g);
+  });
 }
 
 // ── TABS ──
@@ -782,17 +1285,142 @@ function closeModal(){
 function closeModalIfOutside(e){
   if(e.target===document.getElementById('modal-overlay')) closeModal();
 }
-function selectGabarit(el){
+function selectGabarit(el, key){
   document.querySelectorAll('.gabarit-card').forEach(function(c){c.classList.remove('selected');});
   el.classList.add('selected');
+  renderPhases(key);
 }
+
+// Phase definitions per gabarit
+var GABARITS = {
+  residentiel: [
+    {id:'esq',   label:'ESQ',    desc:'Esquisse — premières intentions spatiales',         required:true,  checked:true},
+    {id:'aps',   label:'APS',    desc:'Avant-Projet Sommaire — plans d\'ensemble',          required:false, checked:true},
+    {id:'apd',   label:'APD',    desc:'Avant-Projet Définitif — plans cotés validés',       required:true,  checked:true},
+    {id:'dce',   label:'DCE',    desc:'Consultation entreprises — CCTP, devis, OS',         required:false, checked:true},
+    {id:'det',   label:'DET',    desc:'Direction d\'exécution — suivi chantier, CR, réserves', required:false, checked:true},
+    {id:'opr',   label:'OPR',    desc:'Opérations préalables à la réception — levée réserves', required:false, checked:true},
+    {id:'daact', label:'DAACT',  desc:'Déclaration d\'achèvement et de conformité des travaux', required:false, checked:true},
+  ],
+  commercial: [
+    {id:'esq',   label:'ESQ',    desc:'Esquisse — premières intentions spatiales',          required:true,  checked:true},
+    {id:'aps',   label:'APS',    desc:'Avant-Projet Sommaire',                               required:false, checked:true},
+    {id:'apd',   label:'APD',    desc:'Avant-Projet Définitif — plans cotés validés',        required:true,  checked:true},
+    {id:'dce',   label:'DCE',    desc:'Consultation entreprises — CCTP, devis, OS',          required:false, checked:true},
+    {id:'det',   label:'DET',    desc:'Direction d\'exécution — suivi chantier',             required:false, checked:true},
+    {id:'erp',   label:'ERP',    desc:'Dossier ERP — sécurité incendie, accessibilité',     required:false, checked:true},
+    {id:'opr',   label:'OPR',    desc:'Réception des travaux — levée des réserves',          required:false, checked:true},
+  ],
+  tertiaire: [
+    {id:'esq',   label:'ESQ',    desc:'Esquisse — premières intentions spatiales',          required:true,  checked:true},
+    {id:'apd',   label:'APD',    desc:'Avant-Projet Définitif — plans cotés validés',        required:true,  checked:true},
+    {id:'dce',   label:'DCE',    desc:'Consultation entreprises — CCTP, devis, OS',          required:false, checked:true},
+    {id:'det',   label:'DET',    desc:'Direction d\'exécution — suivi chantier',             required:false, checked:true},
+    {id:'opr',   label:'OPR',    desc:'Réception des travaux',                               required:false, checked:true},
+  ],
+  sourcing: [
+    {id:'sel',   label:'Sélection',   desc:'Sourcing mobilier — catalogue des 157 marques', required:true,  checked:true},
+    {id:'prop',  label:'Proposition', desc:'Proposition commerciale client — PDF automatique', required:true, checked:true},
+    {id:'cmd',   label:'Commande',    desc:'Bon de commande après validation client',         required:true,  checked:true},
+    {id:'liv',   label:'Livraison',   desc:'Suivi des livraisons et SAV',                    required:false, checked:true},
+  ],
+};
+
+function renderPhases(key){
+  var phases = GABARITS[key] || GABARITS['residentiel'];
+  var container = document.getElementById('phases-selector');
+  container.innerHTML = '';
+  phases.forEach(function(p){
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:var(--white);border:0.5px solid var(--cream-border);border-radius:8px;cursor:'+(p.required?'default':'pointer')+';transition:background .1s;';
+    row.id = 'phase-row-'+p.id;
+    if(!p.required) row.onclick = function(){ togglePhase(p.id); };
+
+    var checkWrap = document.createElement('div');
+    checkWrap.style.cssText = 'width:18px;height:18px;border-radius:4px;border:1.5px solid var(--cream-border);background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:background .15s,border-color .15s;';
+    checkWrap.id = 'check-'+p.id;
+    if(p.checked){
+      checkWrap.style.background = 'var(--green-700)';
+      checkWrap.style.borderColor = 'var(--green-700)';
+      checkWrap.innerHTML = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    }
+
+    var info = document.createElement('div');
+    info.style.cssText = 'flex:1;';
+
+    var badge = document.createElement('span');
+    badge.style.cssText = 'font-size:12px;font-weight:500;color:var(--gray-800);margin-right:8px;';
+    badge.textContent = p.label;
+
+    var req = '';
+    if(p.required){
+      req = document.createElement('span');
+      req.style.cssText = 'font-size:10px;background:var(--cream);color:var(--gray-400);border:0.5px solid var(--cream-border);padding:1px 6px;border-radius:10px;margin-right:6px;';
+      req.textContent = 'Obligatoire';
+    }
+
+    var desc = document.createElement('div');
+    desc.style.cssText = 'font-size:11px;color:var(--gray-400);margin-top:2px;';
+    desc.textContent = p.desc;
+
+    var labelLine = document.createElement('div');
+    labelLine.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:4px;';
+    labelLine.appendChild(badge);
+    if(req) labelLine.appendChild(req);
+
+    info.appendChild(labelLine);
+    info.appendChild(desc);
+    row.appendChild(checkWrap);
+    row.appendChild(info);
+
+    // state tracking
+    row._checked = p.checked;
+    row._required = p.required;
+    row._id = p.id;
+    row._label = p.label;
+
+    container.appendChild(row);
+  });
+  updatePreview();
+}
+
+function togglePhase(id){
+  var row = document.getElementById('phase-row-'+id);
+  var check = document.getElementById('check-'+id);
+  if(!row || row._required) return;
+  row._checked = !row._checked;
+  if(row._checked){
+    check.style.background = 'var(--green-700)';
+    check.style.borderColor = 'var(--green-700)';
+    check.innerHTML = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    row.style.background = 'var(--white)';
+  } else {
+    check.style.background = 'var(--white)';
+    check.style.borderColor = 'var(--cream-border)';
+    check.innerHTML = '';
+    row.style.background = '#FDFCFA';
+  }
+  updatePreview();
+}
+
+function updatePreview(){
+  var rows = document.querySelectorAll('#phases-selector > div');
+  var active = [];
+  rows.forEach(function(r){ if(r._checked) active.push(r._label); });
+  document.getElementById('phases-preview').textContent = active.join(' → ') || '—';
+}
+
 function createProject(){
   var name=document.getElementById('input-name').value;
   if(!name){document.getElementById('input-name').focus();return;}
+  var preview = document.getElementById('phases-preview').textContent;
   closeModal();
   goToProject();
-  showToast('Projet "'+name+'" créé — invitation client envoyée');
+  showToast('Projet "'+name+'" créé · ' + preview);
 }
+
+// Init phases on load
+renderPhases('residentiel');
 
 // ── FILTER ──
 var currentFilter='all';
